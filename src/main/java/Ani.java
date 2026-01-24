@@ -1,3 +1,6 @@
+
+import java.util.Objects;
+import java.util.Scanner;
 public class Ani {
     public static void main(String[] args) {
 
@@ -19,17 +22,25 @@ public class Ani {
          */
         System.out.println("Hello from\n" + logo);
 
+
         String intro = "___________________________________\n" +
                 "Hello! I'm Ani\n"
-                + "What can I do for you?";
+                + "What can I do for you?\n" + "________________________________\n";
 
         String exit = "___________________________________\n" +
                 "Bye. Hope to see you again soon!\n" + "___________________________________";
 
-
-
         System.out.println(intro);
+
+        Scanner s = new Scanner(System.in);
+        String input = s.nextLine();
+        while (!input.equals("bye")) {
+            System.out.println("_______________________\n" + input + "\n__________________________\n");
+            input = s.nextLine();
+        }
+
         System.out.println(exit);
+
 
 
 
