@@ -21,6 +21,7 @@ public class Ani {
 
          */
         System.out.println("Hello from\n" + logo);
+        String[] task_list = new String[100];
 
 
         String intro = "___________________________________\n" +
@@ -31,23 +32,37 @@ public class Ani {
                 "Bye. Hope to see you again soon!\n" + "___________________________________";
 
         System.out.println(intro);
+        Task[] lst = new Task[100];
+
 
         Scanner s = new Scanner(System.in);
         String input = s.nextLine();
         while (!input.equals("bye")) {
-            System.out.println("_______________________\n" + input + "\n__________________________\n");
+            if (input.equals("list")) {
+
+                System.out.println("____________________________");
+                for (int i = 1; i < lst.length + 1; i++) {
+                    if (lst[i - 1] == null) {
+                        break;
+                    }
+                    System.out.println(i + ". " + lst[i - 1].getTask_name());
+                }
+
+                System.out.println("_____________________________");
+            }
+
+            else {
+                System.out.println("_______________________\n" + "added: " + input + "\n__________________________\n");
+                Task a = new Task(input);
+                lst[Task.count] = a;
+                Task.count_increase();
+            }
+
             input = s.nextLine();
+
         }
 
         System.out.println(exit);
-
-
-
-
-
-
-
-
 
     }
 }
