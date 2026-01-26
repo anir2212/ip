@@ -7,19 +7,11 @@ public class Ani {
         String logo = "    ___     ___   ___  _______ \n"
                 +
                 "   /   \\   |   \\  | | |__  __|\n"
-                    + "  / /_\\ \\  | |\\ \\ | |   |  |\n"
-                    + " / ----- \\ | | \\ \\| | __|  |__        \n"
-                    + "/__/   \\__\\| |  \\___| |______|           ";
+                + "  / /_\\ \\  | |\\ \\ | |   |  |\n"
+                + " / ----- \\ | | \\ \\| | __|  |__        \n"
+                + "/__/   \\__\\| |  \\___| |______|           ";
 
 
-        /*
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-
-         */
         System.out.println("Hello from\n" + logo);
         String[] task_list = new String[100];
 
@@ -37,32 +29,56 @@ public class Ani {
 
         Scanner s = new Scanner(System.in);
         String input = s.nextLine();
+        String[] words = input.split(" ");
+
+
         while (!input.equals("bye")) {
-            if (input.equals("list")) {
-
-                System.out.println("____________________________");
-                for (int i = 1; i < lst.length + 1; i++) {
-                    if (lst[i - 1] == null) {
-                        break;
+            switch (input) {
+                case "list":
+                    System.out.println("____________________________");
+                    for (int i = 1; i < lst.length + 1; i++) {
+                        if (lst[i - 1] == null) {
+                            break;
+                        }
+                        System.out.println(i + ". " + lst[i - 1].toString());
                     }
-                    System.out.println(i + ". " + lst[i - 1].getTask_name());
-                }
 
-                System.out.println("_____________________________");
+                    System.out.println("_____________________________");
+                    break;
+
+
+                default:
+                    if (input.startsWith("mark")) {
+
+                        int num = Integer.parseInt(words[1]);
+
+                        lst[num - 1].change_to_mark();
+                        System.out.println("_____________________\n" +
+                                "Nice! I have marked this task as done:\n" +
+                                lst[num - 1].toString() + "\n____________________________");
+
+
+                    } else if (input.startsWith("unmark")) {
+                        int num = Integer.parseInt(words[1]);
+                        lst[num - 1].change_to_unmark();
+                        System.out.println("_____________________\n" +
+                                "OK, I've marked this task as not done yet:\n" +
+                                lst[num - 1].toString() + "\n___________________________");
+
+                    } else {
+
+                        System.out.println("_______________________\n" + "added: " + input + "\n__________________________\n");
+                        Task a = new Task(Task.count, input, false);
+                        lst[Task.count] = a;
+                        Task.count_increase();
+
+                    }
             }
-
-            else {
-                System.out.println("_______________________\n" + "added: " + input + "\n__________________________\n");
-                Task a = new Task(input);
-                lst[Task.count] = a;
-                Task.count_increase();
-            }
-
             input = s.nextLine();
-
+            words = input.split(" ");
         }
-
         System.out.println(exit);
-
     }
 }
+
+
