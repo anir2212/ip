@@ -52,6 +52,18 @@ public class Ani {
                 case "mark" :
                     int num = Integer.parseInt(words[1]);
 
+                    try {
+                        if (num > Task.count) {
+                            throw new AniException("_________________________________\n" + "Please provide a valid task number\n"
+                                                    +"______________________________");
+                        }
+                    } catch (AniException e) {
+                        System.out.println(e.getMessage());
+                        input = s.nextLine();
+                        words = input.split(" ");
+                        continue;
+                    }
+
                     lst[num - 1].change_to_mark();
                     System.out.println("_____________________\n" +
                             "Nice! I have marked this task as done:\n" +
@@ -68,18 +80,38 @@ public class Ani {
 
                 case "todo" :
 
-                    String task_todo = input.trim().split(" ", 2)[1];
-                    Todo t = new Todo(Task.count, task_todo, false);
-                    lst[Task.count] = t;
-                    Task.count_increase();
-                    System.out.println("__________________________\n" + "Got it. I've added this task:\n"
-                            + t + "\nNow you have " + Task.count + " tasks in the list.\n"
-                            + "_________________________________");
-                    break;
+                    try {
+                        String task_todo = input.trim().split(" ", 2)[1];
+                        if (task_todo.isEmpty()) {
+                            throw new AniException("_____________________________\n" + "Please state a task\n" +
+                                    "_______________________________" );
+                        }
+                        Todo t = new Todo(Task.count, task_todo, false);
+                        lst[Task.count] = t;
+                        Task.count_increase();
+                        System.out.println("__________________________\n" + "Got it. I've added this task:\n"
+                                + t + "\nNow you have " + Task.count + " tasks in the list.\n"
+                                + "_________________________________");
+                        break;
+                    } catch (ArrayIndexOutOfBoundsException b) {
+                        System.out.println("________________________________\n" + "Please state a task\n"
+                                + "____________________________________");
+                        input = s.nextLine();
+                        words = input.split(" ");
+                        continue;
+                    } catch (AniException c) {
+                        System.out.println(c.getMessage());
+                        input = s.nextLine();
+                        words = input.split(" ");
+                        continue;
+                    }
+
+
                 case "deadline" :
                     String[] parts = input.split("/");
                     String date = parts[1].trim().split(" ", 2)[1];
                     String task_name = parts[0].trim().split(" ", 2)[1];
+
                     Deadlines d = new Deadlines(Task.count, task_name, false, date);
                     lst[Task.count] = d;
                     Task.count_increase();
@@ -102,10 +134,23 @@ public class Ani {
                     break;
 
                 default:
+                    try {
+                        throw new AniException("________________________________\n" + "Sorry, I don't understand what that means\n"
+                                                + "_____________________________");
+                    }
+                    catch (AniException a){
+                        System.out.println(a.getMessage());
+
+
+                    }
+
+                    /*
                     System.out.println("_______________________\n" + "added: " + input + "\n__________________________\n");
                     Task a = new Task(Task.count, input, false);
                     lst[Task.count] = a;
                     Task.count_increase();
+
+                     */
 
             }
 
