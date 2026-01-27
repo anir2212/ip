@@ -1,4 +1,5 @@
 
+import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
 public class Ani {
@@ -24,7 +25,8 @@ public class Ani {
                 "Bye. Hope to see you again soon!\n" + "___________________________________";
 
         System.out.println(intro);
-        Task[] lst = new Task[100];
+        //Task[] lst = new Task[100];
+        ArrayList<Task> lst = new ArrayList<>();
 
 
         Scanner s = new Scanner(System.in);
@@ -39,12 +41,12 @@ public class Ani {
             switch (firstWord) {
                 case "list":
                     System.out.println("____________________________\n" + "Here are the tasks in your list:");
-                    for (int i = 1; i < lst.length + 1; i++) {
-                        if (lst[i - 1] == null) {
-                            break;
-                        }
-                        System.out.println(i + ". " + lst[i - 1].toString());
+                    for (int i = 1; i < lst.size() + 1; i++) {
+
+                        System.out.println(i + ". " + lst.get(i - 1).toString());
                     }
+
+
 
                     System.out.println("_____________________________");
                     break;
@@ -54,7 +56,8 @@ public class Ani {
 
                     try {
                         if (num > Task.count) {
-                            throw new AniException("_________________________________\n" + "Please provide a valid task number\n"
+                            throw new AniException("_________________________________\n"
+                                                    + "Please provide a valid task number\n"
                                                     +"______________________________");
                         }
                     } catch (AniException e) {
@@ -64,18 +67,18 @@ public class Ani {
                         continue;
                     }
 
-                    lst[num - 1].change_to_mark();
+                    lst.get(num - 1).change_to_mark();
                     System.out.println("_____________________\n" +
                             "Nice! I have marked this task as done:\n" +
-                            lst[num - 1].toString() + "\n____________________________");
+                            lst.get(num - 1).toString() + "\n____________________________");
                     break;
 
                 case "unmark" :
                     int second_num = Integer.parseInt(words[1]);
-                    lst[second_num - 1].change_to_unmark();
+                    lst.get(second_num - 1).change_to_unmark();
                     System.out.println("_____________________\n" +
                             "OK, I've marked this task as not done yet:\n" +
-                            lst[second_num - 1].toString() + "\n___________________________");
+                            lst.get(second_num - 1).toString() + "\n___________________________");
                     break;
 
                 case "todo" :
@@ -87,7 +90,7 @@ public class Ani {
                                     "_______________________________" );
                         }
                         Todo t = new Todo(Task.count, task_todo, false);
-                        lst[Task.count] = t;
+                        lst.add(t);
                         Task.count_increase();
                         System.out.println("__________________________\n" + "Got it. I've added this task:\n"
                                 + t + "\nNow you have " + Task.count + " tasks in the list.\n"
@@ -113,7 +116,7 @@ public class Ani {
                     String task_name = parts[0].trim().split(" ", 2)[1];
 
                     Deadlines d = new Deadlines(Task.count, task_name, false, date);
-                    lst[Task.count] = d;
+                    lst.add(d);
                     Task.count_increase();
                     System.out.println("__________________________\n" + "Got it. I've added this task:\n"
                             + d + "\nNow you have " + Task.count + " tasks in the list.\n"
@@ -126,31 +129,35 @@ public class Ani {
                     String end = event_parts[2].trim().split(" ", 2)[1];
                     String event_task = event_parts[0].trim().split(" ", 2)[1];
                     Event e = new Event(Task.count, event_task, false, start, end);
-                    lst[Task.count] = e;
+                    lst.add(e);
                     Task.count_increase();
                     System.out.println("__________________________\n" + "Got it. I've added this task:\n"
                             + e + "\nNow you have " + Task.count + " tasks in the list.\n"
                             + "_________________________________");
                     break;
+                case "delete" :
+                    int delete_num = Integer.parseInt(words[1]);
+                    Task removed = lst.get(delete_num - 1);
+                    lst.remove(delete_num - 1);
+                    Task.count--;
+                    System.out.println("_____________________________\n" + "Noted. I've removed this task:\n"
+                                        + removed.toString() + "\nNow you have " + Task.count + " tasks in the list.\n"
+                                        + "____________________________");
+                    break;
+
+
 
                 default:
                     try {
-                        throw new AniException("________________________________\n" + "Sorry, I don't understand what that means\n"
-                                                + "_____________________________");
+                        throw new AniException("________________________________\n"
+                                + "Sorry, I don't understand what that means\n"
+                                + "_____________________________");
                     }
                     catch (AniException a){
                         System.out.println(a.getMessage());
 
 
                     }
-
-                    /*
-                    System.out.println("_______________________\n" + "added: " + input + "\n__________________________\n");
-                    Task a = new Task(Task.count, input, false);
-                    lst[Task.count] = a;
-                    Task.count_increase();
-
-                     */
 
             }
 
