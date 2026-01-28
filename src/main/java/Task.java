@@ -39,4 +39,14 @@ public class Task {
 
         }
     }
+
+    public String toStringForFile() {
+        if (!this.b) {
+            return "| 0 | " + task_name;
+        } else {
+            return "| 1 | " + task_name;
+        }
+
+    }
+
 }

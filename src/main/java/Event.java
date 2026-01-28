@@ -14,6 +14,11 @@ public class Event extends Task{
         return "[E]" + super.toString() + " (from: " + start + " to: " + end + ")";
     }
 
+    public String toStringForFile() {
+        return "E " + super.toStringForFile() + " | from: " + start + " to: " + end;
+
+    }
+
 
 
 }
