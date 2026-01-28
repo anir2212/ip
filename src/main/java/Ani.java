@@ -1,5 +1,6 @@
 
 import java.io.*;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
@@ -101,6 +102,7 @@ public class Ani {
 
         while (!input.equals("bye")) {
             String firstWord = input.split(" ")[0];
+            DateTimeFormatter d_format = DateTimeFormatter.ofPattern("yyyy-MM-d");
             switch (firstWord) {
                 case "list":
                     System.out.println("____________________________\n" + "Here are the tasks in your list:");
@@ -183,18 +185,31 @@ public class Ani {
                     String[] parts = input.split("/");
                     String date = parts[1].trim().split(" ", 2)[1];
 
+                    try {
+                        LocalDate d1 = LocalDate.parse(date, d_format);
+                        String task_name = parts[0].trim().split(" ", 2)[1];
 
-                    String task_name = parts[0].trim().split(" ", 2)[1];
 
-                    LocalDate d1 = LocalDate.parse(date);
-                    String final_date = d1.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+                        String final_date = d1.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
 
-                    Deadlines d = new Deadlines(Task.count, task_name, false, final_date);
-                    lst.add(d);
-                    Task.count_increase();
-                    System.out.println("__________________________\n" + "Got it. I've added this task:\n"
-                            + d + "\nNow you have " + Task.count + " tasks in the list.\n"
-                            + "_________________________________");
+                        Deadlines d = new Deadlines(Task.count, task_name, false, final_date);
+                        lst.add(d);
+                        Task.count_increase();
+                        System.out.println("__________________________\n" + "Got it. I've added this task:\n"
+                                + d + "\nNow you have " + Task.count + " tasks in the list.\n"
+                                + "_________________________________");
+
+                    } catch (DateTimeParseException e) {
+                        System.out.println("_________________________________________________________\n"
+                                            + "Please enter a valid date and follow yyyy-mm-dd format\n"
+                                            + "_______________________________________________________");
+
+                        input = s.nextLine();
+                        words = input.split(" ");
+                        continue;
+                    }
+
+
                     //pw.println(d.toStringForFile());
 
                     break;
@@ -204,18 +219,33 @@ public class Ani {
                     String start = event_parts[1].trim().split(" ", 2)[1];
                     String end = event_parts[2].trim().split(" ", 2)[1];
                     String event_task = event_parts[0].trim().split(" ", 2)[1];
-                    LocalDate start_date = LocalDate.parse(start);
-                    LocalDate end_date = LocalDate.parse(end);
-                    String final_start = start_date.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
-                    String final_end = end_date.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+                    try {
+                        LocalDate start_date = LocalDate.parse(start, d_format);
+                        LocalDate end_date = LocalDate.parse(end, d_format);
+                        String final_start = start_date.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+                        String final_end = end_date.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
 
-                    Event e = new Event(Task.count, event_task, false, final_start, final_end);
-                    lst.add(e);
-                    Task.count_increase();
-                    System.out.println("__________________________\n" + "Got it. I've added this task:\n"
-                            + e + "\nNow you have " + Task.count + " tasks in the list.\n"
-                            + "_________________________________");
-                    //pw.println(e.toStringForFile());
+                        Event e = new Event(Task.count, event_task, false, final_start, final_end);
+                        lst.add(e);
+                        Task.count_increase();
+                        System.out.println("__________________________\n" + "Got it. I've added this task:\n"
+                                + e + "\nNow you have " + Task.count + " tasks in the list.\n"
+                                + "_________________________________");
+                        //pw.println(e.toStringForFile());
+
+                    } catch (DateTimeParseException e) {
+                        System.out.println("_________________________________________________________\n"
+                                + "Please enter a valid date and follow yyyy-mm-dd format\n"
+                                + "_______________________________________________________");
+
+                        input = s.nextLine();
+                        words = input.split(" ");
+                        continue;
+
+                    }
+
+
+
 
                     break;
                 case "delete" :

@@ -1,5 +1,1 @@
-T | 1 | borrow book
-D | 0 | watch movie | Sunday
-E | 0 | talk people | from: Jan 6 to: Jan 8
-D | 0 | borrow pen | Dec 5 2026
-E | 0 | read a movie | from: Dec 29 2025 to: Apr 1 2026
+D | 0 | reach school | May 24 2025
