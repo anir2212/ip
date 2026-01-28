@@ -3,6 +3,9 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 public class Ani {
     public static void main(String[] args) throws IOException {
 
@@ -179,9 +182,14 @@ public class Ani {
                 case "deadline" :
                     String[] parts = input.split("/");
                     String date = parts[1].trim().split(" ", 2)[1];
+
+
                     String task_name = parts[0].trim().split(" ", 2)[1];
 
-                    Deadlines d = new Deadlines(Task.count, task_name, false, date);
+                    LocalDate d1 = LocalDate.parse(date);
+                    String final_date = d1.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+
+                    Deadlines d = new Deadlines(Task.count, task_name, false, final_date);
                     lst.add(d);
                     Task.count_increase();
                     System.out.println("__________________________\n" + "Got it. I've added this task:\n"
@@ -196,7 +204,12 @@ public class Ani {
                     String start = event_parts[1].trim().split(" ", 2)[1];
                     String end = event_parts[2].trim().split(" ", 2)[1];
                     String event_task = event_parts[0].trim().split(" ", 2)[1];
-                    Event e = new Event(Task.count, event_task, false, start, end);
+                    LocalDate start_date = LocalDate.parse(start);
+                    LocalDate end_date = LocalDate.parse(end);
+                    String final_start = start_date.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+                    String final_end = end_date.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+
+                    Event e = new Event(Task.count, event_task, false, final_start, final_end);
                     lst.add(e);
                     Task.count_increase();
                     System.out.println("__________________________\n" + "Got it. I've added this task:\n"
