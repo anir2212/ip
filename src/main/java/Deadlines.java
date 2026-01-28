@@ -8,4 +8,8 @@ public class Deadlines extends Task{
     public String toString() {
         return "[D]" + super.toString() + " (by: " + date + ")";
     }
+
+    public String toStringForFile() {
+        return "D " + super.toStringForFile() + " | " + date;
+    }
 }

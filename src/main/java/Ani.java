@@ -1,9 +1,10 @@
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
 public class Ani {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
         String logo = "    ___     ___   ___  _______\n"
                 + "   /   \\   |   \\  | | |__  __|\n"
@@ -14,7 +15,7 @@ public class Ani {
 
 
         System.out.println("Hello from\n" + logo);
-        String[] task_list = new String[100];
+
 
 
         String intro = "___________________________________\n" +
@@ -26,11 +27,70 @@ public class Ani {
 
         System.out.println(intro);
         //Task[] lst = new Task[100];
-        ArrayList<Task> lst = new ArrayList<>();
+
+
 
 
         Scanner s = new Scanner(System.in);
 
+
+
+        File file = new File("./data/Ani.txt");
+        file.getParentFile().mkdirs();
+
+
+        //ArrayList<String> lines = new ArrayList<>();
+        Scanner s_read = new Scanner(file);
+
+
+        ArrayList<Task> lst = new ArrayList<>();
+
+        if (file.length() != 0) {
+            while (s_read.hasNextLine()) {
+                String line = s_read.nextLine();
+                String[] words = line.split("\\|");
+                String word = words[0].trim();
+                switch(word) {
+                    case "T" :
+
+
+                        Todo a = new Todo(Task.count, words[2].trim(), "1".equals(words[1].trim()));
+                        Task.count++;
+                        lst.add(a);
+
+                        break;
+
+                    case "D" :
+
+                        Deadlines d = new Deadlines(Task.count, words[2].trim(), "1".equals(words[1].trim()),
+                                                    words[3].trim());
+                        Task.count++;
+                        lst.add(d);
+                        break;
+
+                    case "E" :
+                        int start_index = words[3].trim().indexOf(":") + 1;
+                        int end_index = words[3].trim().indexOf("to");
+
+                        String start_date = words[3].trim().substring(start_index, end_index).trim();
+                        String end_date = words[3].trim().substring(end_index + "to: ".length());
+
+
+                        Event e = new Event(Task.count, words[2].trim(), "1".equals(words[1].trim()), start_date, end_date);
+                        lst.add(e);
+                        Task.count++;
+                        break;
+
+
+
+
+                }
+
+
+            }
+
+
+        }
 
         String input = s.nextLine();
         String[] words = input.split(" ");
@@ -71,6 +131,9 @@ public class Ani {
                     System.out.println("_____________________\n" +
                             "Nice! I have marked this task as done:\n" +
                             lst.get(num - 1).toString() + "\n____________________________");
+
+
+
                     break;
 
                 case "unmark" :
@@ -79,6 +142,7 @@ public class Ani {
                     System.out.println("_____________________\n" +
                             "OK, I've marked this task as not done yet:\n" +
                             lst.get(second_num - 1).toString() + "\n___________________________");
+
                     break;
 
                 case "todo" :
@@ -95,6 +159,8 @@ public class Ani {
                         System.out.println("__________________________\n" + "Got it. I've added this task:\n"
                                 + t + "\nNow you have " + Task.count + " tasks in the list.\n"
                                 + "_________________________________");
+                        //pw.println(t.toStringForFile());
+
                         break;
                     } catch (ArrayIndexOutOfBoundsException b) {
                         System.out.println("________________________________\n" + "Please state a task\n"
@@ -121,6 +187,8 @@ public class Ani {
                     System.out.println("__________________________\n" + "Got it. I've added this task:\n"
                             + d + "\nNow you have " + Task.count + " tasks in the list.\n"
                             + "_________________________________");
+                    //pw.println(d.toStringForFile());
+
                     break;
 
                 case "event" :
@@ -134,6 +202,8 @@ public class Ani {
                     System.out.println("__________________________\n" + "Got it. I've added this task:\n"
                             + e + "\nNow you have " + Task.count + " tasks in the list.\n"
                             + "_________________________________");
+                    //pw.println(e.toStringForFile());
+
                     break;
                 case "delete" :
                     int delete_num = Integer.parseInt(words[1]);
@@ -143,6 +213,7 @@ public class Ani {
                     System.out.println("_____________________________\n" + "Noted. I've removed this task:\n"
                                         + removed.toString() + "\nNow you have " + Task.count + " tasks in the list.\n"
                                         + "____________________________");
+
                     break;
 
 
@@ -161,9 +232,26 @@ public class Ani {
 
             }
 
+            try (PrintWriter pw = new PrintWriter(new FileWriter(file))) {
+                for (Task task : lst) {
+                    pw.println(task.toStringForFile());
+
+                }
+            } catch (IOException e) {
+                System.out.println("Error saving tasks");
+            }
+
             input = s.nextLine();
             words = input.split(" ");
         }
+
+        /*
+        for (Task t : lst) {
+            pw.println(t.toStringForFile());  // write each task as one line
+        }
+        pw.close();
+
+         */
         System.out.println(exit);
     }
 }

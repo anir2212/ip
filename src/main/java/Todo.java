@@ -8,4 +8,8 @@ public class Todo extends Task{
         return "[T]" + super.toString();
 
     }
+
+    public String toStringForFile() {
+        return "T " + super.toStringForFile();
+    }
 }
