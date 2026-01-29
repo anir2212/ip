@@ -8,8 +8,25 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 public class Ani {
-    public static void main(String[] args) throws IOException {
+    private Storage storage;
+    private TaskList tasks;
+    private Ui ui;
 
+    public Ani(String filePath) {
+        ui = new Ui();
+        storage = new Storage(filePath);
+        try {
+            tasks = new TaskList(storage.load());
+
+        } catch (AniException | FileNotFoundException e) {
+            System.out.println("No previous tasks listed");
+            tasks = new TaskList();
+
+        }
+
+    }
+
+    public void run() throws IOException {
         String logo = "    ___     ___   ___  _______\n"
                 + "   /   \\   |   \\  | | |__  __|\n"
                 + "  / /_\\ \\  | |\\ \\ | |   |  |\n"
@@ -30,15 +47,11 @@ public class Ani {
                 "Bye. Hope to see you again soon!\n" + "___________________________________";
 
         System.out.println(intro);
-        //Task[] lst = new Task[100];
-
-
-
 
         Scanner s = new Scanner(System.in);
 
 
-
+        /*
         File file = new File("./data/Ani.txt");
         file.getParentFile().mkdirs();
 
@@ -46,8 +59,8 @@ public class Ani {
         //ArrayList<String> lines = new ArrayList<>();
         Scanner s_read = new Scanner(file);
 
-
         ArrayList<Task> lst = new ArrayList<>();
+
 
         if (file.length() != 0) {
             while (s_read.hasNextLine()) {
@@ -96,6 +109,8 @@ public class Ani {
 
         }
 
+         */
+
         String input = s.nextLine();
         String[] words = input.split(" ");
 
@@ -106,9 +121,9 @@ public class Ani {
             switch (firstWord) {
                 case "list":
                     System.out.println("____________________________\n" + "Here are the tasks in your list:");
-                    for (int i = 1; i < lst.size() + 1; i++) {
+                    for (int i = 1; i < tasks.len() + 1; i++) {
 
-                        System.out.println(i + ". " + lst.get(i - 1).toString());
+                        System.out.println(i + ". " + tasks.getTask(i - 1).toString());
                     }
 
 
@@ -122,8 +137,8 @@ public class Ani {
                     try {
                         if (num > Task.count) {
                             throw new AniException("_________________________________\n"
-                                                    + "Please provide a valid task number\n"
-                                                    +"______________________________");
+                                    + "Please provide a valid task number\n"
+                                    +"______________________________");
                         }
                     } catch (AniException e) {
                         System.out.println(e.getMessage());
@@ -132,10 +147,10 @@ public class Ani {
                         continue;
                     }
 
-                    lst.get(num - 1).change_to_mark();
+                    tasks.getTask(num - 1).change_to_mark();
                     System.out.println("_____________________\n" +
                             "Nice! I have marked this task as done:\n" +
-                            lst.get(num - 1).toString() + "\n____________________________");
+                            tasks.getTask(num - 1).toString() + "\n____________________________");
 
 
 
@@ -143,10 +158,10 @@ public class Ani {
 
                 case "unmark" :
                     int second_num = Integer.parseInt(words[1]);
-                    lst.get(second_num - 1).change_to_unmark();
+                    tasks.getTask(second_num - 1).change_to_unmark();
                     System.out.println("_____________________\n" +
                             "OK, I've marked this task as not done yet:\n" +
-                            lst.get(second_num - 1).toString() + "\n___________________________");
+                            tasks.getTask(second_num - 1).toString() + "\n___________________________");
 
                     break;
 
@@ -159,7 +174,7 @@ public class Ani {
                                     "_______________________________" );
                         }
                         Todo t = new Todo(Task.count, task_todo, false);
-                        lst.add(t);
+                        tasks.addTask(t);
                         Task.count_increase();
                         System.out.println("__________________________\n" + "Got it. I've added this task:\n"
                                 + t + "\nNow you have " + Task.count + " tasks in the list.\n"
@@ -193,7 +208,7 @@ public class Ani {
                         String final_date = d1.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
 
                         Deadlines d = new Deadlines(Task.count, task_name, false, final_date);
-                        lst.add(d);
+                        tasks.addTask(d);
                         Task.count_increase();
                         System.out.println("__________________________\n" + "Got it. I've added this task:\n"
                                 + d + "\nNow you have " + Task.count + " tasks in the list.\n"
@@ -201,8 +216,8 @@ public class Ani {
 
                     } catch (DateTimeParseException e) {
                         System.out.println("_________________________________________________________\n"
-                                            + "Please enter a valid date and follow yyyy-mm-dd format\n"
-                                            + "_______________________________________________________");
+                                + "Please enter a valid date and follow yyyy-mm-dd format\n"
+                                + "_______________________________________________________");
 
                         input = s.nextLine();
                         words = input.split(" ");
@@ -226,7 +241,7 @@ public class Ani {
                         String final_end = end_date.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
 
                         Event e = new Event(Task.count, event_task, false, final_start, final_end);
-                        lst.add(e);
+                        tasks.addTask(e);
                         Task.count_increase();
                         System.out.println("__________________________\n" + "Got it. I've added this task:\n"
                                 + e + "\nNow you have " + Task.count + " tasks in the list.\n"
@@ -243,23 +258,37 @@ public class Ani {
                         continue;
 
                     }
-
-
-
-
                     break;
+
                 case "delete" :
-                    int delete_num = Integer.parseInt(words[1]);
-                    Task removed = lst.get(delete_num - 1);
-                    lst.remove(delete_num - 1);
-                    Task.count--;
-                    System.out.println("_____________________________\n" + "Noted. I've removed this task:\n"
-                                        + removed.toString() + "\nNow you have " + Task.count + " tasks in the list.\n"
-                                        + "____________________________");
+                    try {
+                        int delete_num = Integer.parseInt(words[1]);
+                        if (delete_num > Task.count) {
+                            throw new AniException("___________________________________\n"
+                                    + "Please enter a valid task number\n"
+                                    + "_________________________________");
+
+                        }
+
+
+                        Task removed = tasks.getTask(delete_num - 1);
+                        tasks.removeTask(delete_num - 1);
+                        Task.count--;
+                        System.out.println("_____________________________\n" + "Noted. I've removed this task:\n"
+                                + removed.toString() + "\nNow you have " + Task.count + " tasks in the list.\n"
+                                + "____________________________");
+
+
+
+                    } catch (AniException e) {
+                        System.out.println(e.getMessage());
+                        input = s.nextLine();
+                        words = input.split(" ");
+                        continue;
+
+                    }
 
                     break;
-
-
 
                 default:
                     try {
@@ -275,14 +304,9 @@ public class Ani {
 
             }
 
-            try (PrintWriter pw = new PrintWriter(new FileWriter(file))) {
-                for (Task task : lst) {
-                    pw.println(task.toStringForFile());
+            storage.store(tasks);
 
-                }
-            } catch (IOException e) {
-                System.out.println("Error saving tasks");
-            }
+
 
             input = s.nextLine();
             words = input.split(" ");
@@ -297,6 +321,16 @@ public class Ani {
          */
         System.out.println(exit);
     }
+
+
+
+
+    public static void main(String[] args) throws IOException {
+        new Ani("./data/Ani.txt").run();
+
+
+    }
+
 }
 
 
