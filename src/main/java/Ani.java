@@ -1,12 +1,10 @@
-
-import java.io.*;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
-import java.util.Objects;
 import java.util.Scanner;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
+
 public class Ani {
     private Storage storage;
     private TaskList tasks;
@@ -27,95 +25,17 @@ public class Ani {
     }
 
     public void run() throws IOException {
-        String logo = "    ___     ___   ___  _______\n"
-                + "   /   \\   |   \\  | | |__  __|\n"
-                + "  / /_\\ \\  | |\\ \\ | |   |  |\n"
-                + " / ----- \\ | | \\ \\| | __|  |__\n"
-                + "/__/   \\__\\| |  \\___| |______|";
 
 
-
-        System.out.println("Hello from\n" + logo);
-
-
-
-        String intro = "___________________________________\n" +
-                "Hello! I'm Ani\n"
-                + "What can I do for you?\n" + "________________________________";
-
-        String exit = "___________________________________\n" +
-                "Bye. Hope to see you again soon!\n" + "___________________________________";
-
-        System.out.println(intro);
-
+        ui.showWelcome();
+        //String input = ui.readCommand();
         Scanner s = new Scanner(System.in);
-
-
-        /*
-        File file = new File("./data/Ani.txt");
-        file.getParentFile().mkdirs();
-
-
-        //ArrayList<String> lines = new ArrayList<>();
-        Scanner s_read = new Scanner(file);
-
-        ArrayList<Task> lst = new ArrayList<>();
-
-
-        if (file.length() != 0) {
-            while (s_read.hasNextLine()) {
-                String line = s_read.nextLine();
-                String[] words = line.split("\\|");
-                String word = words[0].trim();
-                switch(word) {
-                    case "T" :
-
-
-                        Todo a = new Todo(Task.count, words[2].trim(), "1".equals(words[1].trim()));
-                        Task.count++;
-                        lst.add(a);
-
-                        break;
-
-                    case "D" :
-
-                        Deadlines d = new Deadlines(Task.count, words[2].trim(), "1".equals(words[1].trim()),
-                                                    words[3].trim());
-                        Task.count++;
-                        lst.add(d);
-                        break;
-
-                    case "E" :
-                        int start_index = words[3].trim().indexOf(":") + 1;
-                        int end_index = words[3].trim().indexOf("to");
-
-                        String start_date = words[3].trim().substring(start_index, end_index).trim();
-                        String end_date = words[3].trim().substring(end_index + "to: ".length());
-
-
-                        Event e = new Event(Task.count, words[2].trim(), "1".equals(words[1].trim()), start_date, end_date);
-                        lst.add(e);
-                        Task.count++;
-                        break;
-
-
-
-
-                }
-
-
-            }
-
-
-        }
-
-         */
-
         String input = s.nextLine();
         String[] words = input.split(" ");
 
 
         while (!input.equals("bye")) {
+
             String firstWord = input.split(" ")[0];
             DateTimeFormatter d_format = DateTimeFormatter.ofPattern("yyyy-MM-d");
             switch (firstWord) {
@@ -125,7 +45,6 @@ public class Ani {
 
                         System.out.println(i + ". " + tasks.getTask(i - 1).toString());
                     }
-
 
 
                     System.out.println("_____________________________");
@@ -224,9 +143,6 @@ public class Ani {
                         continue;
                     }
 
-
-                    //pw.println(d.toStringForFile());
-
                     break;
 
                 case "event" :
@@ -279,7 +195,6 @@ public class Ani {
                                 + "____________________________");
 
 
-
                     } catch (AniException e) {
                         System.out.println(e.getMessage());
                         input = s.nextLine();
@@ -291,6 +206,7 @@ public class Ani {
                     break;
 
                 default:
+
                     try {
                         throw new AniException("________________________________\n"
                                 + "Sorry, I don't understand what that means\n"
@@ -312,14 +228,7 @@ public class Ani {
             words = input.split(" ");
         }
 
-        /*
-        for (Task t : lst) {
-            pw.println(t.toStringForFile());  // write each task as one line
-        }
-        pw.close();
-
-         */
-        System.out.println(exit);
+        ui.showExit();
     }
 
 
