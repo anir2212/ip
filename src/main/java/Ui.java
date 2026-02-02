@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class Ui {
 
     public void showWelcome() {
@@ -21,12 +23,27 @@ public class Ui {
 
     }
 
+    public String readCommand() {
+        Scanner s = new Scanner(System.in);
+        return s.nextLine();
+    }
+
+    public void showLine() {
+        System.out.println("_______________________________");
+
+
+    }
+
+    public void showError(String message) {
+        System.out.println(message);
+    }
+
 
 
     public void showExit() {
-        String exit = "___________________________________\n" +
-                "Bye. Hope to see you again soon!\n" + "___________________________________";
-        System.out.println(exit);
+        System.out.println("___________________________________\n" +
+                "Bye. Hope to see you again soon!\n" + "___________________________________");
+
     }
 
 

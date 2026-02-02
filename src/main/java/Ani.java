@@ -1,9 +1,7 @@
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.time.format.DateTimeParseException;
 import java.util.Scanner;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+
 
 public class Ani {
     private Storage storage;
@@ -30,6 +28,33 @@ public class Ani {
         ui.showWelcome();
         //String input = ui.readCommand();
         Scanner s = new Scanner(System.in);
+        boolean isExit = false;
+
+        while (!isExit) {
+            try {
+
+
+                String fullCommand = ui.readCommand();
+                Command c = Parser.parse(fullCommand);
+                c.execute(tasks, ui, storage);
+                isExit = c.isExit();
+
+
+            } catch (AniException e) {
+                ui.showError(e.getMessage());
+            } finally {
+                //ui.showLine();
+            }
+        }
+    }
+
+
+
+
+
+
+
+/*
         String input = s.nextLine();
         String[] words = input.split(" ");
 
@@ -228,11 +253,12 @@ public class Ani {
             words = input.split(" ");
         }
 
-        ui.showExit();
+        //ui.showExit();
     }
 
 
 
+*/
 
     public static void main(String[] args) throws IOException {
         new Ani("./data/Ani.txt").run();
