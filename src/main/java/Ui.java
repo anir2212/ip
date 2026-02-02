@@ -28,16 +28,9 @@ public class Ui {
         return s.nextLine();
     }
 
-    public void showLine() {
-        System.out.println("_______________________________");
-
-
-    }
-
     public void showError(String message) {
         System.out.println(message);
     }
-
 
 
     public void showExit() {
