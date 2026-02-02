@@ -1,3 +1,5 @@
+package Ani;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;

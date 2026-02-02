@@ -1,3 +1,5 @@
+package Ani;
+
 public class AniException extends RuntimeException{
 
     public AniException(String message) {

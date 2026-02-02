@@ -1,3 +1,5 @@
+package Ani;
+
 import java.util.Scanner;
 
 public class Ui {
