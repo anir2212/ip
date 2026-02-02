@@ -135,7 +135,7 @@ public class Ani {
 
                     } catch (DateTimeParseException e) {
                         System.out.println("_________________________________________________________\n"
-                                + "Please enter a valid date and follow yyyy-mm-dd format\n"
+                                + "Please enter a valid date and follow yyyy-mm-dd format. Thank you.\n"
                                 + "_______________________________________________________");
 
                         input = s.nextLine();
