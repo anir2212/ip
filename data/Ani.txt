@@ -1,3 +1,2 @@
-T | 0 | borrow speech
-T | 0 | borrow book
 D | 0 | read book | Dec 30 2025
+T | 0 | borrow book
