@@ -28,7 +28,7 @@ public class AddCommand extends Command{
                 System.out.println("__________________________\n" + "Got it. I've added this task:\n"
                         + t + "\nNow you have " + Task.count + " tasks in the list.\n"
                         + "_________________________________");
-                //pw.println(t.toStringForFile());
+
 
                 break;
 
@@ -89,11 +89,6 @@ public class AddCommand extends Command{
                                             + "Please input date in valid format YYYY-MM-DD\n"
                                             + "__________________________________");
                 }
-
-
-
-
-
 
         }
 
