@@ -1,16 +1,34 @@
 package ani;
 
+/**
+ * Deadlines class to input the necessary details for deadlines and the toString methods.
+ */
 public class Deadlines extends Task{
     private String date;
-    Deadlines(int num, String s, boolean b, String date) {
-        super(num, s, b);
+
+    /**
+     * Creates Deadlines object with the respective details.
+     *
+     * @param num Task number.
+     * @param taskName Description of task.
+     * @param isMark Boolean of whether task is marked or not.
+     * @param date Deadline date.
+     */
+    Deadlines(int num, String taskName, boolean isMark, String date) {
+        super(num, taskName, isMark);
         this.date = date;
     }
 
+    @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + date + ")";
     }
 
+    /**
+     * Implements the string representation of a task to be stored in the text file.
+     *
+     * @return String implementation of tasks to be stored in text file.
+     */
     public String toStringForFile() {
         return "D " + super.toStringForFile() + " | " + date;
     }
