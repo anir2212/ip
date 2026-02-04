@@ -13,7 +13,7 @@ public class Task {
 
     }
 
-    public String getTask_name() {
+    public String getTaskName() {
         return task_name;
     }
 

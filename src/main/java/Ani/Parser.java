@@ -30,6 +30,9 @@ public class Parser {
             case "delete" :
                 int deleteNum = Integer.parseInt(words[1]);
                 return new DeleteCommand(deleteNum);
+            case "find" :
+                String keyword = words[1];
+                return new FindCommand(keyword);
             case "bye" :
                 return new ExitCommand();
             default:
