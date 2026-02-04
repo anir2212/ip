@@ -1,14 +1,16 @@
-
 package ani;
 
+/**
+ * Parser class parses the input from the user and outputs the respective command type.
+ */
 public class Parser {
 
-    private String command;
-
-    public Parser (String command) {
-        this.command = command;
-    }
-
+    /**
+     * Parses the user input and outputs the command type required to execute task.
+     *
+     * @param input User input.
+     * @return Instance of relevant command type.
+     */
     public static Command parse(String input) {
         String firstWord = input.split(" ")[0];
         String[] words = input.split(" ");
@@ -39,12 +41,6 @@ public class Parser {
                 return new DefaultCommand();
         }
 
-
-
-
-
-
     }
-
 
 }

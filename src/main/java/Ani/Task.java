@@ -1,54 +1,71 @@
 package ani;
 
+/**
+ * Task class to instantiate a task.
+ */
 public class Task {
     static int count = 0;
-    private String task_name;
+    private String taskName;
     private int num;
-    private boolean b;
+    private boolean isMark;
 
-    public Task(int num,  String s, boolean b) {
-        task_name = s;
+    /**
+     * Task constructor that takes in necessary task details.
+     *
+     * @param num Task number.
+     * @param taskName Description of task.
+     * @param isMark Whether task is marked or not.
+     */
+    public Task(int num,  String taskName, boolean isMark) {
+        this.taskName = taskName;
         this.num = num;
-        this.b = b;
-
+        this.isMark = isMark;
     }
 
     public String getTaskName() {
-        return task_name;
+        return taskName;
     }
 
-    public static void count_increase() {
+    /**
+     * Increases overall task count.
+     */
+    public static void countIncrease() {
         count++;
     }
 
-    public void change_to_mark() {
-
-        this.b = true;
+    /**
+     * Changes task to be marked if not marked yet.
+     */
+    public void changeToMark() {
+        isMark = true;
     }
 
-    public void change_to_unmark() {
-        this.b = false;
-
+    /**
+     * Changes task to unmarked if marked.
+     */
+    public void changeToUnmark() {
+        isMark = false;
     }
 
+    @Override
     public String toString() {
-        if (!this.b) {
-            return "[ ] " + task_name;
-
-
+        if (!isMark) {
+            return "[ ] " + taskName;
         } else {
-            return "[X] " + task_name;
-
+            return "[X] " + taskName;
         }
     }
 
+    /**
+     * Implements string representation of tasks in the storage text file.
+     *
+     * @return String representation for text file storage.
+     */
     public String toStringForFile() {
-        if (!this.b) {
-            return "| 0 | " + task_name;
+        if (!isMark) {
+            return "| 0 | " + taskName;
         } else {
-            return "| 1 | " + task_name;
+            return "| 1 | " + taskName;
         }
-
     }
-
 }

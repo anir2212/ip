@@ -1,21 +1,36 @@
 package ani;
-
 import java.io.IOException;
 
+/**
+ * DeleteCommand class for a delete command to be executed.
+ */
 public class DeleteCommand extends Command {
-
     private int deleteNum;
 
+    /**
+     * DeleteCommand constructor that takes in task to be deleted through task number.
+     *
+     * @param deleteNum Task number to be deleted.
+     */
     public DeleteCommand(int deleteNum) {
         this.deleteNum = deleteNum;
     }
 
-    public void execute (TaskList tasks, Ui ui, Storage storage) throws IOException {
+    /**
+     * Executes the deletion of task from taskList and storage.
+     *
+     * @param tasks Tasks in taskList.
+     * @param ui UI.
+     * @param storage Storage in Storage class for tasks present.
+     * @throws IOException
+     * @throws AniException Exception thrown for invalid task number.
+     */
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
 
         if (deleteNum > Task.count) {
             throw new AniException("___________________________________\n"
-                    + "Please enter a valid task number\n"
-                    + "_________________________________");
+                                    + "Please enter a valid task number\n"
+                                    + "_________________________________");
 
         }
 
@@ -30,6 +45,11 @@ public class DeleteCommand extends Command {
 
     }
 
+    /**
+     * Signals whether the command is one that exits.
+     *
+     * @return Boolean to not exit.
+     */
     public boolean isExit() {
         return false;
     }
