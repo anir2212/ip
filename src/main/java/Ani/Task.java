@@ -1,4 +1,4 @@
-package Ani;
+package ani;
 
 public class Task {
     static int count = 0;

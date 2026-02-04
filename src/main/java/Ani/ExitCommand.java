@@ -1,4 +1,4 @@
-package Ani;
+package ani;
 
 public class ExitCommand extends Command {
 

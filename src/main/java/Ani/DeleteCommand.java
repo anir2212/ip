@@ -1,4 +1,6 @@
-package Ani;
+package ani;
+
+import java.io.IOException;
 
 public class DeleteCommand extends Command {
 
@@ -8,7 +10,7 @@ public class DeleteCommand extends Command {
         this.deleteNum = deleteNum;
     }
 
-    public void execute (TaskList tasks, Ui ui, Storage storage) {
+    public void execute (TaskList tasks, Ui ui, Storage storage) throws IOException {
 
         if (deleteNum > Task.count) {
             throw new AniException("___________________________________\n"
@@ -17,13 +19,14 @@ public class DeleteCommand extends Command {
 
         }
 
-
         Task removed = tasks.getTask(deleteNum - 1);
         tasks.removeTask(deleteNum - 1);
         Task.count--;
         System.out.println("_____________________________\n" + "Noted. I've removed this task:\n"
                 + removed.toString() + "\nNow you have " + Task.count + " tasks in the list.\n"
                 + "____________________________");
+
+        storage.store(tasks);
 
     }
 

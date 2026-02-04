@@ -1,4 +1,4 @@
-package Ani;
+package ani;
 
 import java.util.Scanner;
 

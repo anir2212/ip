@@ -1,4 +1,5 @@
-package Ani;
+package ani;
+
 
 import java.io.*;
 import java.util.ArrayList;
@@ -18,7 +19,7 @@ public class Storage {
 
 
 
-    public void store(TaskList arr) throws IOException{
+    public void store(TaskList arr){
         try (PrintWriter pw = new PrintWriter(new FileWriter(file))) {
             for (int i = 0; i < arr.len(); i++) {
                 pw.println(arr.getTask(i).toStringForFile());
@@ -73,8 +74,6 @@ public class Storage {
                         lst.add(e);
                         Task.count++;
                         break;
-
-
 
 
                 }

@@ -1,4 +1,4 @@
-package Ani;
+package ani;
 public class Todo extends Task{
 
     public Todo(int num, String s, boolean b) {

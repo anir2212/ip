@@ -1,6 +1,7 @@
-package Ani;
+package ani;
 
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -14,7 +15,7 @@ public class AddCommand extends Command{
 
     }
 
-    public void execute (TaskList tasks, Ui ui, Storage storage) {
+    public void execute (TaskList tasks, Ui ui, Storage storage) throws IOException {
         DateTimeFormatter d_format = DateTimeFormatter.ofPattern("yyyy-MM-d");
         switch(taskName) {
             case "todo":
@@ -31,6 +32,7 @@ public class AddCommand extends Command{
                 System.out.println("__________________________\n" + "Got it. I've added this task:\n"
                         + t + "\nNow you have " + Task.count + " tasks in the list.\n"
                         + "_________________________________");
+                storage.store(tasks);
 
 
                 break;
@@ -56,6 +58,7 @@ public class AddCommand extends Command{
                     System.out.println("__________________________\n" + "Got it. I've added this task:\n"
                             + d + "\nNow you have " + Task.count + " tasks in the list.\n"
                             + "_________________________________");
+                    storage.store(tasks);
 
                     break;
                 } catch (DateTimeParseException e) {
@@ -84,6 +87,7 @@ public class AddCommand extends Command{
                     System.out.println("__________________________\n" + "Got it. I've added this task:\n"
                             + e + "\nNow you have " + Task.count + " tasks in the list.\n"
                             + "_________________________________");
+                    storage.store(tasks);
 
 
                     break;

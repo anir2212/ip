@@ -1,5 +1,5 @@
 
-package Ani;
+package ani;
 
 public class Parser {
 

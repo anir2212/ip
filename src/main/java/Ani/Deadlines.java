@@ -1,4 +1,4 @@
-package Ani;
+package ani;
 
 public class Deadlines extends Task{
     private String date;

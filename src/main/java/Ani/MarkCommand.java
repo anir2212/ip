@@ -1,4 +1,7 @@
-package Ani;
+package ani;
+
+import java.io.IOException;
+
 public class MarkCommand extends Command{
 
     private int num;
@@ -7,7 +10,7 @@ public class MarkCommand extends Command{
         this.num = num;
     }
 
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
 
         if (num > Task.count) {
             throw new AniException("_________________________________\n"
@@ -20,6 +23,8 @@ public class MarkCommand extends Command{
         System.out.println("_____________________\n" +
                 "Nice! I have marked this task as done:\n" +
                 tasks.getTask(num - 1).toString() + "\n____________________________");
+
+        storage.store(tasks);
 
     }
 
