@@ -1,4 +1,5 @@
 package ani;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
@@ -30,7 +31,7 @@ public class Ani {
      * Executes initial UI and the tasks that are continually read.
      * Uses command classes and the execute methods associated with them.
      *
-     * @throws IOException Exception thrown for file reading errors.
+     * @throws IOException  Exception thrown for file reading errors.
      * @throws AniException Exception thrown in execute methods.
      */
     public void run() throws IOException {

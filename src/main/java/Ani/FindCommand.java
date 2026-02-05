@@ -19,15 +19,15 @@ public class FindCommand extends Command {
     /**
      * Executes the finding of the tasks that match the keyword.
      *
-     * @param tasks Tasks in taskList.
-     * @param ui UI.
+     * @param tasks   Tasks in taskList.
+     * @param ui      UI.
      * @param storage Storage in Storage class for tasks present.
      */
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         int count = 1;
         System.out.println("___________________________________________\n"
-                            + "Here are the matching tasks in your list:");
-        for(int i = 1; i < tasks.len() + 1; i++) {
+                + "Here are the matching tasks in your list:");
+        for (int i = 1; i < tasks.len() + 1; i++) {
             String nameTask = tasks.getTask(i - 1).getTaskName();
             String[] words = nameTask.split(" ");
             for (String word : words) {

@@ -1,4 +1,5 @@
 package ani;
+
 import java.io.IOException;
 
 /**
@@ -19,8 +20,8 @@ public class DeleteCommand extends Command {
     /**
      * Executes the deletion of task from taskList and storage.
      *
-     * @param tasks Tasks in taskList.
-     * @param ui UI.
+     * @param tasks   Tasks in taskList.
+     * @param ui      UI.
      * @param storage Storage in Storage class for tasks present.
      * @throws IOException
      * @throws AniException Exception thrown for invalid task number.
@@ -29,8 +30,8 @@ public class DeleteCommand extends Command {
 
         if (deleteNum > Task.count) {
             throw new AniException("___________________________________\n"
-                                    + "Please enter a valid task number\n"
-                                    + "_________________________________");
+                    + "Please enter a valid task number\n"
+                    + "_________________________________");
 
         }
 
