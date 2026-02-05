@@ -44,7 +44,9 @@ public class Ani {
                 c.execute(tasks, ui, storage);
                 isExit = c.isExit();
             } catch (AniException e) {
+                ui.showLine();
                 ui.showError(e.getMessage());
+                ui.showLine();
             }
         }
     }

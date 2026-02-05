@@ -20,12 +20,11 @@ public class Ui {
 
         System.out.println("Hello from\n" + logo);
 
-
-        String intro = "___________________________________\n" +
-                "Hello! I'm Ani\n"
-                + "What can I do for you?\n" + "________________________________";
-
+        showLine();
+        String intro = "Hello! I'm Ani\n"
+                + "What can I do for you?";
         System.out.println(intro);
+        showLine();
 
     }
 
@@ -52,8 +51,15 @@ public class Ui {
      * Shows exit message.
      */
     public void showExit() {
-        System.out.println("___________________________________\n" +
-                "Bye. Hope to see you again soon!\n" + "___________________________________");
+        showLine();
+        System.out.println("Bye. Hope to see you again soon!");
+        showLine();
+    }
 
+    /**
+     * Shows line
+     */
+    public void showLine() {
+        System.out.println("_____________________________________");
     }
 }

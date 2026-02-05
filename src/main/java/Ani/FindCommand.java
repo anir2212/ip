@@ -25,8 +25,8 @@ public class FindCommand extends Command {
      */
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         int count = 1;
-        System.out.println("___________________________________________\n"
-                + "Here are the matching tasks in your list:");
+        ui.showLine();
+        System.out.println("Here are the matching tasks in your list:");
         for (int i = 1; i < tasks.len() + 1; i++) {
             String nameTask = tasks.getTask(i - 1).getTaskName();
             String[] words = nameTask.split(" ");
@@ -38,7 +38,7 @@ public class FindCommand extends Command {
                 }
             }
         }
-        System.out.println("_________________________________________");
+        ui.showLine();
     }
 
     /**

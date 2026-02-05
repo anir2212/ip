@@ -1,6 +1,11 @@
 package ani;
 
-import java.io.*;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -51,40 +56,34 @@ public class Storage {
     public ArrayList<Task> load() throws FileNotFoundException {
 
         file.getParentFile().mkdirs();
-        Scanner s_read = new Scanner(file);
+        Scanner sRead = new Scanner(file);
         ArrayList<Task> lst = new ArrayList<>();
 
         if (file.length() != 0) {
-            while (s_read.hasNextLine()) {
-                String line = s_read.nextLine();
+            while (sRead.hasNextLine()) {
+                String line = sRead.nextLine();
                 String[] words = line.split("\\|");
                 String word = words[0].trim();
                 switch (word) {
                 case "T":
-
-
                     Todo a = new Todo(Task.count, words[2].trim(), "1".equals(words[1].trim()));
                     Task.count++;
                     lst.add(a);
-
                     break;
 
                 case "D":
-
-                    Deadlines d = new Deadlines(Task.count, words[2].trim(), "1".equals(words[1].trim()),
-                            words[3].trim());
+                    Deadlines deadline = new Deadlines(Task.count, words[2].trim(), "1".equals(words[1].trim()), words[3].trim());
                     Task.count++;
-                    lst.add(d);
+                    lst.add(deadline);
                     break;
 
                 case "E":
-                    int start_index = words[3].trim().indexOf(":") + 1;
-                    int end_index = words[3].trim().indexOf("to");
-
-                    String start_date = words[3].trim().substring(start_index, end_index).trim();
-                    String end_date = words[3].trim().substring(end_index + "to: ".length());
-                    Event e = new Event(Task.count, words[2].trim(), "1".equals(words[1].trim()), start_date, end_date);
-                    lst.add(e);
+                    int startIndex = words[3].trim().indexOf(":") + 1;
+                    int endIndex = words[3].trim().indexOf("to");
+                    String startDate = words[3].trim().substring(startIndex, endIndex).trim();
+                    String endDate = words[3].trim().substring(endIndex + "to: ".length());
+                    Event event = new Event(Task.count, words[2].trim(), "1".equals(words[1].trim()), startDate, endDate);
+                    lst.add(event);
                     Task.count++;
                     break;
 

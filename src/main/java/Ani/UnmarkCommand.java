@@ -27,9 +27,10 @@ public class UnmarkCommand extends Command {
      */
     public void execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
         tasks.getTask(num - 1).changeToUnmark();
-        System.out.println("_____________________\n" +
-                "OK, I've marked this task as not done yet:\n" +
-                tasks.getTask(num - 1).toString() + "\n___________________________");
+        ui.showLine();
+        System.out.println("OK, I've marked this task as not done yet:\n"
+                + tasks.getTask(num - 1).toString());
+        ui.showLine();
         storage.store(tasks);
     }
 

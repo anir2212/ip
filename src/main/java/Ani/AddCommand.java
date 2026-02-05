@@ -39,15 +39,15 @@ public class AddCommand extends Command {
         case "todo":
             String taskTodo = input.trim().split(" ", 2)[1];
             if (taskTodo.isEmpty()) {
-                throw new AniException("_____________________________\n" + "Please state a task\n" +
-                        "_______________________________");
+                throw new AniException("Please state a task");
             }
             Todo t = new Todo(Task.count, taskTodo, false);
             tasks.addTask(t);
             Task.countIncrease();
-            System.out.println("__________________________\n" + "Got it. I've added this task:\n"
-                    + t + "\nNow you have " + Task.count + " tasks in the list.\n"
-                    + "_________________________________");
+            ui.showLine();
+            System.out.println("Got it. I've added this task:\n"
+                    + t + "\nNow you have " + Task.count + " tasks in the list.\n");
+            ui.showLine();
             storage.store(tasks);
             break;
 
@@ -64,16 +64,15 @@ public class AddCommand extends Command {
                 Deadlines d = new Deadlines(Task.count, taskName, false, finalDate);
                 tasks.addTask(d);
                 Task.countIncrease();
-                System.out.println("__________________________\n" + "Got it. I've added this task:\n"
-                        + d + "\nNow you have " + Task.count + " tasks in the list.\n"
-                        + "_________________________________");
+                ui.showLine();
+                System.out.println("Got it. I've added this task:\n"
+                        + d + "\nNow you have " + Task.count + " tasks in the list.\n");
+                ui.showLine();
                 storage.store(tasks);
                 break;
 
             } catch (DateTimeParseException e) {
-                throw new AniException("_____________________________\n"
-                        + "Please input date in valid format YYYY-MM-DD\n"
-                        + "__________________________________");
+                throw new AniException("Please input date in valid format YYYY-MM-DD");
             }
 
         case "event":
@@ -91,17 +90,14 @@ public class AddCommand extends Command {
                 Event e = new Event(Task.count, event_task, false, finalStart, finalEnd);
                 tasks.addTask(e);
                 Task.countIncrease();
-                System.out.println("__________________________\n" + "Got it. I've added this task:\n"
-                        + e + "\nNow you have " + Task.count + " tasks in the list.\n"
-                        + "_________________________________");
+                ui.showLine();
+                System.out.println("Got it. I've added this task:\n"
+                        + e + "\nNow you have " + Task.count + " tasks in the list.\n");
+                ui.showLine();
                 storage.store(tasks);
-
-
                 break;
             } catch (DateTimeParseException e) {
-                throw new AniException("_____________________________\n"
-                        + "Please input date in valid format YYYY-MM-DD\n"
-                        + "__________________________________");
+                throw new AniException("Please input date in valid format YYYY-MM-DD");
             }
         }
     }

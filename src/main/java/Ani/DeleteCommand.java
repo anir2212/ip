@@ -29,19 +29,16 @@ public class DeleteCommand extends Command {
     public void execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
 
         if (deleteNum > Task.count) {
-            throw new AniException("___________________________________\n"
-                    + "Please enter a valid task number\n"
-                    + "_________________________________");
-
+            throw new AniException("Please enter a valid task number");
         }
 
         Task removed = tasks.getTask(deleteNum - 1);
         tasks.removeTask(deleteNum - 1);
         Task.count--;
-        System.out.println("_____________________________\n" + "Noted. I've removed this task:\n"
-                + removed.toString() + "\nNow you have " + Task.count + " tasks in the list.\n"
-                + "____________________________");
-
+        ui.showLine();
+        System.out.println("Noted. I've removed this task:\n" + removed.toString()
+                + "\nNow you have " + Task.count + " tasks in the list.\n");
+        ui.showLine();
         storage.store(tasks);
 
     }
@@ -54,6 +51,5 @@ public class DeleteCommand extends Command {
     public boolean isExit() {
         return false;
     }
-
 
 }
