@@ -1,4 +1,5 @@
 package ani;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -16,7 +17,7 @@ public class Storage {
      *
      * @param filePath Filepath to storage file containing all the tasks.
      */
-    public Storage (String filePath) {
+    public Storage(String filePath) {
         this.filePath = filePath;
         this.file = new File(this.filePath);
 
@@ -28,7 +29,7 @@ public class Storage {
      *
      * @param arr TaskList array.
      */
-    public void store(TaskList arr){
+    public void store(TaskList arr) {
         try (PrintWriter pw = new PrintWriter(new FileWriter(file))) {
             for (int i = 0; i < arr.len(); i++) {
                 pw.println(arr.getTask(i).toStringForFile());
@@ -58,34 +59,34 @@ public class Storage {
                 String line = s_read.nextLine();
                 String[] words = line.split("\\|");
                 String word = words[0].trim();
-                switch(word) {
-                    case "T" :
+                switch (word) {
+                case "T":
 
 
-                        Todo a = new Todo(Task.count, words[2].trim(), "1".equals(words[1].trim()));
-                        Task.count++;
-                        lst.add(a);
+                    Todo a = new Todo(Task.count, words[2].trim(), "1".equals(words[1].trim()));
+                    Task.count++;
+                    lst.add(a);
 
-                        break;
+                    break;
 
-                    case "D" :
+                case "D":
 
-                        Deadlines d = new Deadlines(Task.count, words[2].trim(), "1".equals(words[1].trim()),
-                                words[3].trim());
-                        Task.count++;
-                        lst.add(d);
-                        break;
+                    Deadlines d = new Deadlines(Task.count, words[2].trim(), "1".equals(words[1].trim()),
+                            words[3].trim());
+                    Task.count++;
+                    lst.add(d);
+                    break;
 
-                    case "E" :
-                        int start_index = words[3].trim().indexOf(":") + 1;
-                        int end_index = words[3].trim().indexOf("to");
+                case "E":
+                    int start_index = words[3].trim().indexOf(":") + 1;
+                    int end_index = words[3].trim().indexOf("to");
 
-                        String start_date = words[3].trim().substring(start_index, end_index).trim();
-                        String end_date = words[3].trim().substring(end_index + "to: ".length());
-                        Event e = new Event(Task.count, words[2].trim(), "1".equals(words[1].trim()), start_date, end_date);
-                        lst.add(e);
-                        Task.count++;
-                        break;
+                    String start_date = words[3].trim().substring(start_index, end_index).trim();
+                    String end_date = words[3].trim().substring(end_index + "to: ".length());
+                    Event e = new Event(Task.count, words[2].trim(), "1".equals(words[1].trim()), start_date, end_date);
+                    lst.add(e);
+                    Task.count++;
+                    break;
 
                 }
 

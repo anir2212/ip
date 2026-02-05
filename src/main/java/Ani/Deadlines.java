@@ -3,16 +3,16 @@ package ani;
 /**
  * Deadlines class to input the necessary details for deadlines and the toString methods.
  */
-public class Deadlines extends Task{
+public class Deadlines extends Task {
     private String date;
 
     /**
      * Creates Deadlines object with the respective details.
      *
-     * @param num Task number.
+     * @param num      Task number.
      * @param taskName Description of task.
-     * @param isMark Boolean of whether task is marked or not.
-     * @param date Deadline date.
+     * @param isMark   Boolean of whether task is marked or not.
+     * @param date     Deadline date.
      */
     Deadlines(int num, String taskName, boolean isMark, String date) {
         super(num, taskName, isMark);

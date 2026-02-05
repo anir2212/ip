@@ -3,18 +3,18 @@ package ani;
 /**
  * Event class to instantiate an event task with the necessary details.
  */
-public class Event extends Task{
+public class Event extends Task {
     private String start;
     private String end;
 
     /**
      * Event constructor that takes in the necessary details for an event task
      *
-     * @param num Task number.
+     * @param num      Task number.
      * @param taskName Description of task.
-     * @param isMark Boolean of whether task is marked or not.
-     * @param start Start date of event.
-     * @param end End date of event.
+     * @param isMark   Boolean of whether task is marked or not.
+     * @param start    Start date of event.
+     * @param end      End date of event.
      */
     Event(int num, String taskName, boolean isMark, String start, String end) {
         super(num, taskName, isMark);

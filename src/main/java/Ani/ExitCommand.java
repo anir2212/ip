@@ -8,8 +8,8 @@ public class ExitCommand extends Command {
     /**
      * Executes the exit line from the UI and terminates.
      *
-     * @param tasks Tasks in taskList.
-     * @param ui UI.
+     * @param tasks   Tasks in taskList.
+     * @param ui      UI.
      * @param storage Storage in Storage class for tasks present.
      */
     public void execute(TaskList tasks, Ui ui, Storage storage) {

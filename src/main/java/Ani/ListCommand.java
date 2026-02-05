@@ -1,4 +1,5 @@
 package ani;
+
 /**
  * ListCommand class that executes the output of the list of tasks.
  */
@@ -7,8 +8,8 @@ public class ListCommand extends Command {
     /**
      * Executes the printing of the list of tasks in taskList.
      *
-     * @param tasks Tasks in taskList.
-     * @param ui UI.
+     * @param tasks   Tasks in taskList.
+     * @param ui      UI.
      * @param storage Storage in Storage class for tasks present.
      */
     public void execute(TaskList tasks, Ui ui, Storage storage) {
@@ -20,6 +21,7 @@ public class ListCommand extends Command {
         System.out.println("_____________________________");
 
     }
+
     /**
      * Signals whether the command is one that exits.
      *

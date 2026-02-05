@@ -12,11 +12,11 @@ public class Task {
     /**
      * Task constructor that takes in necessary task details.
      *
-     * @param num Task number.
+     * @param num      Task number.
      * @param taskName Description of task.
-     * @param isMark Whether task is marked or not.
+     * @param isMark   Whether task is marked or not.
      */
-    public Task(int num,  String taskName, boolean isMark) {
+    public Task(int num, String taskName, boolean isMark) {
         this.taskName = taskName;
         this.num = num;
         this.isMark = isMark;

@@ -1,14 +1,16 @@
 package ani;
+
 import java.io.IOException;
 
 /**
  * MarkCommand class that executes the marking of tasks.
  */
-public class MarkCommand extends Command{
+public class MarkCommand extends Command {
     private int num;
 
     /**
      * MarkCommand constructor that takes in the task number to be marked.
+     *
      * @param num Task number to be marked.
      */
     public MarkCommand(int num) {
@@ -18,8 +20,8 @@ public class MarkCommand extends Command{
     /**
      * Executes the marking of the task and updates it in taskList.
      *
-     * @param tasks Tasks in taskList.
-     * @param ui UI.
+     * @param tasks   Tasks in taskList.
+     * @param ui      UI.
      * @param storage Storage in Storage class for tasks present.
      * @throws IOException
      */
@@ -27,8 +29,8 @@ public class MarkCommand extends Command{
 
         if (num > Task.count) {
             throw new AniException("_________________________________\n"
-                                    + "Please provide a valid task number\n"
-                                    +"______________________________");
+                    + "Please provide a valid task number\n"
+                    + "______________________________");
         }
 
 

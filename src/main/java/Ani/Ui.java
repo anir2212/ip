@@ -1,4 +1,5 @@
 package ani;
+
 import java.util.Scanner;
 
 /**
@@ -17,9 +18,7 @@ public class Ui {
                 + "/__/   \\__\\| |  \\___| |______|";
 
 
-
         System.out.println("Hello from\n" + logo);
-
 
 
         String intro = "___________________________________\n" +

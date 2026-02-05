@@ -1,10 +1,11 @@
 package ani;
+
 import java.io.IOException;
 
 /**
  * UnmarkCommand class to execute unmarking of task.
  */
-public class UnmarkCommand extends Command{
+public class UnmarkCommand extends Command {
     private int num;
 
     /**
@@ -19,8 +20,8 @@ public class UnmarkCommand extends Command{
     /**
      * Executes the unmarking of task.
      *
-     * @param tasks Tasks in taskList.
-     * @param ui UI.
+     * @param tasks   Tasks in taskList.
+     * @param ui      UI.
      * @param storage Storage in Storage class for tasks present.
      * @throws IOException
      */

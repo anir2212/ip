@@ -3,13 +3,13 @@ package ani;
 /**
  * DefaultCommand class for commands that do not fall into the main defined task types
  */
-public class DefaultCommand extends Command{
+public class DefaultCommand extends Command {
 
     /**
      * Executes throwing of AniException for unknown task types identified
      *
-     * @param tasks Tasks in taskList.
-     * @param ui UI.
+     * @param tasks   Tasks in taskList.
+     * @param ui      UI.
      * @param storage Storage in Storage class for tasks present.
      * @throws AniException Exception thrown for invalid task types
      */

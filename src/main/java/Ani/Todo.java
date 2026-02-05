@@ -3,14 +3,14 @@ package ani;
 /**
  * Todo class for todo type tasks.
  */
-public class Todo extends Task{
+public class Todo extends Task {
 
     /**
      * Todo constructor that takes in the necessary details of a task.
      *
-     * @param num Task number.
+     * @param num      Task number.
      * @param taskName Description of task.
-     * @param isMark Boolean of whether task is marked or not.
+     * @param isMark   Boolean of whether task is marked or not.
      */
     public Todo(int num, String taskName, boolean isMark) {
         super(num, taskName, isMark);
