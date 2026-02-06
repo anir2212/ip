@@ -14,7 +14,7 @@ public class DefaultCommand extends Command {
      * @throws AniException Exception thrown for invalid task types
      */
     public String execute(TaskList tasks, Ui ui, Storage storage) {
-        throw new AniException("Sorry, I don't understand what that means");
+        throw new AniException("\nSorry, I don't understand what that means\n");
     }
 
     /**

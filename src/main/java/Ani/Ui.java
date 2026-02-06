@@ -1,6 +1,5 @@
 package ani;
 
-import java.util.Scanner;
 
 /**
  * UI class for all UI related methods and outputs.
@@ -28,30 +27,21 @@ public class Ui {
 
     }
 
-    /**
-     * Reads user input.
-     *
-     * @return User input as String.
-     */
-    public String readCommand() {
-        Scanner s = new Scanner(System.in);
-        return s.nextLine();
-    }
 
     /**
      * Shows error message.
      *
      * @param message Error message.
      */
-    public void showError(String message) {
-        System.out.println(message);
+    public String showError(String message) {
+        return message;
     }
 
     /**
      * Shows exit message.
      */
     public String showExit() {
-        return showLine() + "Bye. Hope to see you again soon!" + showLine();
+        return showLine() + "\nBye. Hope to see you again soon!\n" + showLine();
     }
 
     /**
