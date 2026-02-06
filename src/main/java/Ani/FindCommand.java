@@ -23,23 +23,32 @@ public class FindCommand extends Command {
      * @param ui      UI.
      * @param storage Storage in Storage class for tasks present.
      */
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        StringBuilder output = new StringBuilder();
         int count = 1;
-        ui.showLine();
-        System.out.println("Here are the matching tasks in your list:");
-        for (int i = 1; i < tasks.len() + 1; i++) {
-            String nameTask = tasks.getTask(i - 1).getTaskName();
+
+        output.append(ui.showLine()).append("\n");
+        output.append("Here are the matching tasks in your list:\n");
+
+        for (int i = 0; i < tasks.len(); i++) {
+            String nameTask = tasks.getTask(i).getTaskName();
             String[] words = nameTask.split(" ");
             for (String word : words) {
                 if (word.equals(keyword)) {
-                    System.out.println(count + ". " + tasks.getTask(i - 1).toString());
+                    output.append(count)
+                            .append(". ")
+                            .append(tasks.getTask(i).toString())
+                            .append("\n");
                     count++;
                     break;
                 }
             }
         }
-        ui.showLine();
+
+        output.append(ui.showLine());
+        return output.toString();
     }
+
 
     /**
      * Signals whether the command is one that exits.

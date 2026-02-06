@@ -25,14 +25,20 @@ public class UnmarkCommand extends Command {
      * @param storage Storage in Storage class for tasks present.
      * @throws IOException
      */
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
         tasks.getTask(num - 1).changeToUnmark();
-        ui.showLine();
-        System.out.println("OK, I've marked this task as not done yet:\n"
-                + tasks.getTask(num - 1).toString());
-        ui.showLine();
+
+        StringBuilder output = new StringBuilder();
+        output.append(ui.showLine()).append("\n");
+        output.append("OK, I've marked this task as not done yet:\n")
+                .append(tasks.getTask(num - 1).toString())
+                .append("\n");
+        output.append(ui.showLine());
+
         storage.store(tasks);
+        return output.toString();
     }
+
 
     /**
      * Signals whether the command is one that exits.

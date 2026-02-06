@@ -25,19 +25,24 @@ public class MarkCommand extends Command {
      * @param storage Storage in Storage class for tasks present.
      * @throws IOException
      */
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
         if (num > Task.count) {
             throw new AniException("Please provide a valid task number");
         }
 
         tasks.getTask(num - 1).changeToMark();
-        ui.showLine();
-        System.out.println("Nice! I have marked this task as done:\n" +
-                tasks.getTask(num - 1).toString());
-        ui.showLine();
-        storage.store(tasks);
 
+        StringBuilder output = new StringBuilder();
+        output.append(ui.showLine()).append("\n");
+        output.append("Nice! I have marked this task as done:\n")
+                .append(tasks.getTask(num - 1).toString())
+                .append("\n");
+        output.append(ui.showLine());
+
+        storage.store(tasks);
+        return output.toString();
     }
+
 
     /**
      * Signals whether the command is one that exits.

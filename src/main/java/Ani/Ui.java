@@ -50,16 +50,14 @@ public class Ui {
     /**
      * Shows exit message.
      */
-    public void showExit() {
-        showLine();
-        System.out.println("Bye. Hope to see you again soon!");
-        showLine();
+    public String showExit() {
+        return showLine() + "Bye. Hope to see you again soon!" + showLine();
     }
 
     /**
      * Shows line
      */
-    public void showLine() {
-        System.out.println("_____________________________________");
+    public String showLine() {
+        return "_____________________________________";
     }
 }

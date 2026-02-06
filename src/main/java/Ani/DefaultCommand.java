@@ -13,7 +13,7 @@ public class DefaultCommand extends Command {
      * @param storage Storage in Storage class for tasks present.
      * @throws AniException Exception thrown for invalid task types
      */
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         throw new AniException("Sorry, I don't understand what that means");
     }
 

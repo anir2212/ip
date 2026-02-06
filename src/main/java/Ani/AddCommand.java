@@ -33,8 +33,82 @@ public class AddCommand extends Command {
      * @throws IOException  Exception thrown if errors with reading and writing file.
      * @throws AniException Exception thrown if errors in todo, deadline and event.
      */
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
+
+    /**
+     * public void execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
+     * DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-d");
+     * switch (taskName) {
+     * case "todo":
+     * String taskTodo = input.trim().split(" ", 2)[1];
+     * if (taskTodo.isEmpty()) {
+     * throw new AniException("Please state a task");
+     * }
+     * Todo t = new Todo(Task.count, taskTodo, false);
+     * tasks.addTask(t);
+     * Task.countIncrease();
+     * ui.showLine();
+     * System.out.println("Got it. I've added this task:\n"
+     * + t + "\nNow you have " + Task.count + " tasks in the list.\n");
+     * ui.showLine();
+     * storage.store(tasks);
+     * break;
+     * <p>
+     * case "deadline":
+     * try {
+     * String[] parts = input.split("/");
+     * String date = parts[1].trim().split(" ", 2)[1];
+     * LocalDate d1 = LocalDate.parse(date, dateFormat);
+     * String taskName = parts[0].trim().split(" ", 2)[1];
+     * <p>
+     * <p>
+     * String finalDate = d1.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+     * <p>
+     * Deadlines d = new Deadlines(Task.count, taskName, false, finalDate);
+     * tasks.addTask(d);
+     * Task.countIncrease();
+     * ui.showLine();
+     * System.out.println("Got it. I've added this task:\n"
+     * + d + "\nNow you have " + Task.count + " tasks in the list.\n");
+     * ui.showLine();
+     * storage.store(tasks);
+     * break;
+     * <p>
+     * } catch (DateTimeParseException e) {
+     * throw new AniException("Please input date in valid format YYYY-MM-DD");
+     * }
+     * <p>
+     * case "event":
+     * try {
+     * String[] eventParts = input.split("/");
+     * String start = eventParts[1].trim().split(" ", 2)[1];
+     * String end = eventParts[2].trim().split(" ", 2)[1];
+     * String event_task = eventParts[0].trim().split(" ", 2)[1];
+     * <p>
+     * LocalDate startDate = LocalDate.parse(start, dateFormat);
+     * LocalDate endDate = LocalDate.parse(end, dateFormat);
+     * String finalStart = startDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+     * String finalEnd = endDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+     * <p>
+     * Event e = new Event(Task.count, event_task, false, finalStart, finalEnd);
+     * tasks.addTask(e);
+     * Task.countIncrease();
+     * ui.showLine();
+     * System.out.println("Got it. I've added this task:\n"
+     * + e + "\nNow you have " + Task.count + " tasks in the list.\n");
+     * ui.showLine();
+     * storage.store(tasks);
+     * break;
+     * } catch (DateTimeParseException e) {
+     * throw new AniException("Please input date in valid format YYYY-MM-DD");
+     * }
+     * }
+     * }
+     **/
+
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
         DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-d");
+        String result = "";
+
         switch (taskName) {
         case "todo":
             String taskTodo = input.trim().split(" ", 2)[1];
@@ -44,10 +118,10 @@ public class AddCommand extends Command {
             Todo t = new Todo(Task.count, taskTodo, false);
             tasks.addTask(t);
             Task.countIncrease();
-            ui.showLine();
-            System.out.println("Got it. I've added this task:\n"
-                    + t + "\nNow you have " + Task.count + " tasks in the list.\n");
-            ui.showLine();
+            result += ui.showLine();
+            result += "Got it. I've added this task:\n"
+                    + t + "\nNow you have " + Task.count + " tasks in the list.\n";
+            result += ui.showLine();
             storage.store(tasks);
             break;
 
@@ -58,16 +132,15 @@ public class AddCommand extends Command {
                 LocalDate d1 = LocalDate.parse(date, dateFormat);
                 String taskName = parts[0].trim().split(" ", 2)[1];
 
-
                 String finalDate = d1.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
 
                 Deadlines d = new Deadlines(Task.count, taskName, false, finalDate);
                 tasks.addTask(d);
                 Task.countIncrease();
-                ui.showLine();
-                System.out.println("Got it. I've added this task:\n"
-                        + d + "\nNow you have " + Task.count + " tasks in the list.\n");
-                ui.showLine();
+                result += ui.showLine();
+                result += "Got it. I've added this task:\n"
+                        + d + "\nNow you have " + Task.count + " tasks in the list.\n";
+                result += ui.showLine();
                 storage.store(tasks);
                 break;
 
@@ -90,17 +163,20 @@ public class AddCommand extends Command {
                 Event e = new Event(Task.count, event_task, false, finalStart, finalEnd);
                 tasks.addTask(e);
                 Task.countIncrease();
-                ui.showLine();
-                System.out.println("Got it. I've added this task:\n"
-                        + e + "\nNow you have " + Task.count + " tasks in the list.\n");
-                ui.showLine();
+                result += ui.showLine();
+                result += "Got it. I've added this task:\n"
+                        + e + "\nNow you have " + Task.count + " tasks in the list.\n";
+                result += ui.showLine();
                 storage.store(tasks);
                 break;
             } catch (DateTimeParseException e) {
                 throw new AniException("Please input date in valid format YYYY-MM-DD");
             }
         }
+
+        return result;
     }
+
 
     /**
      * Signals whether the command is one that exits.

@@ -26,8 +26,7 @@ public class DeleteCommand extends Command {
      * @throws IOException
      * @throws AniException Exception thrown for invalid task number.
      */
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
-
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
         if (deleteNum > Task.count) {
             throw new AniException("Please enter a valid task number");
         }
@@ -35,13 +34,19 @@ public class DeleteCommand extends Command {
         Task removed = tasks.getTask(deleteNum - 1);
         tasks.removeTask(deleteNum - 1);
         Task.count--;
-        ui.showLine();
-        System.out.println("Noted. I've removed this task:\n" + removed.toString()
-                + "\nNow you have " + Task.count + " tasks in the list.\n");
-        ui.showLine();
-        storage.store(tasks);
 
+        StringBuilder output = new StringBuilder();
+        output.append(ui.showLine()).append("\n");
+        output.append("Noted. I've removed this task:\n")
+                .append(removed.toString()).append("\n")
+                .append("Now you have ").append(Task.count)
+                .append(" tasks in the list.\n");
+        output.append(ui.showLine());
+
+        storage.store(tasks);
+        return output.toString();
     }
+
 
     /**
      * Signals whether the command is one that exits.

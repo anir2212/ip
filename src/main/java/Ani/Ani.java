@@ -34,6 +34,8 @@ public class Ani {
      * @throws IOException  Exception thrown for file reading errors.
      * @throws AniException Exception thrown in execute methods.
      */
+
+    /**
     public void run() throws IOException {
         ui.showWelcome();
         boolean isExit = false;
@@ -50,6 +52,12 @@ public class Ani {
             }
         }
     }
+     **/
+
+    public String run(String command) throws IOException {
+        Command c = Parser.parse(command);
+        return c.execute(tasks, ui, storage);
+    }
 
     /**
      * Runs the Ani application.
@@ -57,9 +65,12 @@ public class Ani {
      * @param args
      * @throws IOException
      */
+
+    /**
     public static void main(String[] args) throws IOException {
         new Ani("./data/Ani.txt").run();
     }
+     **/
 }
 
 
