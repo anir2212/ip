@@ -12,15 +12,24 @@ public class ListCommand extends Command {
      * @param ui      UI.
      * @param storage Storage in Storage class for tasks present.
      */
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.showLine();
-        System.out.println("Here are the tasks in your list:");
-        for (int i = 1; i < tasks.len() + 1; i++) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        StringBuilder output = new StringBuilder();
 
-            System.out.println(i + ". " + tasks.getTask(i - 1).toString());
+        output.append(ui.showLine()).append("\n");
+        output.append("Here are the tasks in your list:\n");
+
+        for (int i = 1; i <= tasks.len(); i++) {
+            output.append(i)
+                    .append(". ")
+                    .append(tasks.getTask(i - 1).toString())
+                    .append("\n");
         }
-        ui.showLine();
+
+        output.append(ui.showLine());
+
+        return output.toString();
     }
+
 
     /**
      * Signals whether the command is one that exits.

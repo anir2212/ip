@@ -15,7 +15,7 @@ abstract public class Command {
      * @param storage Storage in Storage class for tasks present.
      * @throws IOException Exception thrown due to file I/O.
      */
-    abstract public void execute(TaskList tasks, Ui ui, Storage storage) throws IOException;
+    abstract public String execute(TaskList tasks, Ui ui, Storage storage) throws IOException;
 
     /**
      * Signals whether the command is one that exits.
