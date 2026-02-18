@@ -55,8 +55,8 @@ public class Storage {
      * @return ArrayList of tasks to be loaded onto TaskList.
      */
     public Todo todoCreate(String[] words) {
-        Todo a = new Todo(Task.count, words[2].trim(), "1".equals(words[1].trim()));
-        Task.count++;
+        Todo a = new Todo(Task.getTaskCount(), words[2].trim(), "1".equals(words[1].trim()));
+        Task.countIncrease();
         return a;
     }
 
@@ -67,8 +67,8 @@ public class Storage {
      * @return ArrayList of tasks to be loaded onto taskList.
      */
     public Deadlines deadlineCreate(String[] words) {
-        Deadlines deadline = new Deadlines(Task.count, words[2].trim(), "1".equals(words[1].trim()), words[3].trim());
-        Task.count++;
+        Deadlines deadline = new Deadlines(Task.getTaskCount(), words[2].trim(), "1".equals(words[1].trim()), words[3].trim());
+        Task.countIncrease();
         return deadline;
 
     }
@@ -84,8 +84,8 @@ public class Storage {
         int endIndex = words[3].trim().indexOf("to");
         String startDate = words[3].trim().substring(startIndex, endIndex).trim();
         String endDate = words[3].trim().substring(endIndex + "to: ".length());
-        Event event = new Event(Task.count, words[2].trim(), "1".equals(words[1].trim()), startDate, endDate);
-        Task.count++;
+        Event event = new Event(Task.getTaskCount(), words[2].trim(), "1".equals(words[1].trim()), startDate, endDate);
+        Task.countIncrease();
         return event;
     }
 

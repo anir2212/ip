@@ -34,6 +34,17 @@ public class Task {
     }
 
     /**
+     * Decreases overall task count.
+     */
+    public static void countDecrease() {
+        count--;
+    }
+
+    public static int getTaskCount() {
+        return count;
+    }
+
+    /**
      * Changes task to be marked if not marked yet.
      */
     public void changeToMark() {
