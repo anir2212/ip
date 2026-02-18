@@ -1,6 +1,10 @@
-package ani;
+package ani.command;
 
 import java.io.IOException;
+
+import ani.Storage;
+import ani.TaskList;
+import ani.Ui;
 
 /**
  * Command class for all types of commands to inherit from.

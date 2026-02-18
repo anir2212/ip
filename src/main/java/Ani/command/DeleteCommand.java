@@ -1,6 +1,12 @@
-package ani;
+package ani.command;
 
 import java.io.IOException;
+
+import ani.exception.AniException;
+import ani.Storage;
+import ani.task.Task;
+import ani.TaskList;
+import ani.Ui;
 
 /**
  * DeleteCommand class for a delete command to be executed.

@@ -1,4 +1,8 @@
-package ani;
+package ani.command;
+
+import ani.Storage;
+import ani.TaskList;
+import ani.Ui;
 
 /**
  * FindCommand class to execute the finding of a task from the taskList.

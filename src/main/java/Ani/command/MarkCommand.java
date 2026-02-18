@@ -1,24 +1,30 @@
-package ani;
+package ani.command;
 
 import java.io.IOException;
 
+import ani.exception.AniException;
+import ani.Storage;
+import ani.task.Task;
+import ani.TaskList;
+import ani.Ui;
+
 /**
- * UnmarkCommand class to execute unmarking of task.
+ * MarkCommand class that executes the marking of tasks.
  */
-public class UnmarkCommand extends Command {
+public class MarkCommand extends Command {
     private int num;
 
     /**
-     * UnmarkCommand constructor that takes in task number to be unmarked.
+     * MarkCommand constructor that takes in the task number to be marked.
      *
-     * @param num Task number.
+     * @param num Task number to be marked.
      */
-    public UnmarkCommand(int num) {
+    public MarkCommand(int num) {
         this.num = num;
     }
 
     /**
-     * Executes the unmarking of task.
+     * Executes the marking of the task and updates it in taskList.
      *
      * @param tasks   Tasks in taskList.
      * @param ui      UI.
@@ -27,12 +33,15 @@ public class UnmarkCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
-        tasks.getTask(num - 1).changeToUnmark();
+        if (num > Task.getTaskCount()) {
+            throw new AniException("Please provide a valid task number");
+        }
+
+        tasks.getTask(num - 1).changeToMark();
 
         StringBuilder output = new StringBuilder();
         output.append(ui.showLine()).append("\n");
-        String taskUndone = "OK, I've marked this task as not done yet:\n";
-        output.append(taskUndone)
+        output.append("Nice! I have marked this task as done:\n")
                 .append(tasks.getTask(num - 1).toString())
                 .append("\n");
         output.append(ui.showLine());
@@ -43,7 +52,7 @@ public class UnmarkCommand extends Command {
 
 
     /**
-     * Signals whether the command is the one that exits.
+     * Signals whether the command is one that exits.
      *
      * @return Boolean to not exit.
      */
@@ -51,5 +60,6 @@ public class UnmarkCommand extends Command {
     public boolean isExit() {
         return false;
     }
+
 
 }

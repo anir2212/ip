@@ -1,4 +1,4 @@
-package ani;
+package ani.exception;
 
 /**
  * Exception class for all exceptions to be caught in the tasks.
