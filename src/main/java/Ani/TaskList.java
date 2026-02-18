@@ -2,6 +2,8 @@ package ani;
 
 import java.util.ArrayList;
 
+import ani.task.Task;
+
 /**
  * TaskList class to store tasks.
  */

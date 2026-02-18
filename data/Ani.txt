@@ -1,5 +1,1 @@
-D | 1 | finish accounting | Feb 8 2026
-E | 0 | watch ST3131 lectures | from: Feb 7 2026 to: Feb 8 2026
-D | 0 | finish ST3131 quiz | Feb 9 2026
-T | 0 | borrow book
-T | 0 | borrow book
+D |#fun| 0 | watch movie | Feb 2 2024

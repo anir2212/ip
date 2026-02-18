@@ -1,6 +1,8 @@
 package ani;
 
 
+import ani.task.Task;
+
 /**
  * UI class for all UI related methods and outputs.
  */

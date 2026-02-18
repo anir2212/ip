@@ -3,6 +3,9 @@ package ani;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+import ani.command.Command;
+import ani.exception.AniException;
+
 /**
  * This is the main class for all Ani operations.
  */
@@ -31,6 +34,7 @@ public class Ani {
     public String run(String command) throws IOException {
         try {
             Command c = Parser.parse(command);
+
             return c.execute(tasks, ui, storage);
 
         } catch (AniException e) {

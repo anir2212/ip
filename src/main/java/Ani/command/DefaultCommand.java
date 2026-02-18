@@ -1,4 +1,9 @@
-package ani;
+package ani.command;
+
+import ani.exception.AniException;
+import ani.Storage;
+import ani.TaskList;
+import ani.Ui;
 
 /**
  * DefaultCommand class for commands that do not fall into the main defined task types

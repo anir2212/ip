@@ -1,4 +1,4 @@
-package ani;
+package ani.task;
 
 /**
  * Event class to instantiate an event task with the necessary details.
@@ -16,8 +16,8 @@ public class Event extends Task {
      * @param start    Start date of event.
      * @param end      End date of event.
      */
-    Event(int num, String taskName, boolean isMark, String start, String end) {
-        super(num, taskName, isMark);
+    public Event(int num, String taskName, String tag, boolean isMark, String start, String end) {
+        super(num, taskName, tag, isMark);
         this.start = start;
         this.end = end;
     }

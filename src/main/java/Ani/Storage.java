@@ -9,6 +9,11 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import ani.task.Deadlines;
+import ani.task.Event;
+import ani.task.Task;
+import ani.task.Todo;
+
 /**
  * Storage class to store and update the tasks on the storage file.
  */
@@ -55,7 +60,12 @@ public class Storage {
      * @return ArrayList of tasks to be loaded onto TaskList.
      */
     public Todo todoCreate(String[] words) {
-        Todo a = new Todo(Task.getTaskCount(), words[2].trim(), "1".equals(words[1].trim()));
+        //Todo(int num, String taskName, String tag, boolean isMark)
+        //words = [T, tag, isMark, taskName]
+        String taskName = words[3].trim();
+        boolean isMark = "1".equals(words[2].trim());
+        String tag = words[1].trim();
+        Todo a = new Todo(Task.getTaskCount(), taskName, tag, isMark);
         Task.countIncrease();
         return a;
     }
@@ -67,7 +77,13 @@ public class Storage {
      * @return ArrayList of tasks to be loaded onto taskList.
      */
     public Deadlines deadlineCreate(String[] words) {
-        Deadlines deadline = new Deadlines(Task.getTaskCount(), words[2].trim(), "1".equals(words[1].trim()), words[3].trim());
+        //words = [T, tag, isMark, taskName, date]
+        //Deadlines(int num, String taskName, String tag, boolean isMark, String date)
+        String tag = words[1].trim();
+        boolean isMark = "1".equals(words[2].trim());
+        String date = words[4].trim();
+        String taskName = words[3].trim();
+        Deadlines deadline = new Deadlines(Task.getTaskCount(), taskName, tag, isMark, date);
         Task.countIncrease();
         return deadline;
 
@@ -80,11 +96,16 @@ public class Storage {
      * @return ArrayList of tasks to be loaded onto taskList.
      */
     public Event eventCreate(String[] words) {
-        int startIndex = words[3].trim().indexOf(":") + 1;
-        int endIndex = words[3].trim().indexOf("to");
-        String startDate = words[3].trim().substring(startIndex, endIndex).trim();
-        String endDate = words[3].trim().substring(endIndex + "to: ".length());
-        Event event = new Event(Task.getTaskCount(), words[2].trim(), "1".equals(words[1].trim()), startDate, endDate);
+        //Event(int num, String taskName, String tag, boolean isMark, String start, String end)
+        //words = [E, tag, isMark, taskName,
+        int startIndex = words[4].trim().indexOf(":") + 1;
+        int endIndex = words[4].trim().indexOf("to");
+        String startDate = words[4].trim().substring(startIndex, endIndex).trim();
+        String endDate = words[4].trim().substring(endIndex + "to: ".length());
+        String taskName = words[3].trim();
+        String tag = words[1].trim();
+        boolean isMark = "1".equals(words[2].trim());
+        Event event = new Event(Task.getTaskCount(), taskName, tag, isMark, startDate, endDate);
         Task.countIncrease();
         return event;
     }
@@ -105,10 +126,13 @@ public class Storage {
         if (file.length() != 0) {
             while (sRead.hasNextLine()) {
                 String line = sRead.nextLine();
+
                 String[] words = line.split("\\|");
+
                 String word = words[0].trim();
                 switch (word) {
                 case "T":
+                    //words = [T, tag, isMark, taskName]
                     lst.add(todoCreate(words));
                     break;
 

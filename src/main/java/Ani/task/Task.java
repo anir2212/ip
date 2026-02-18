@@ -1,4 +1,4 @@
-package ani;
+package ani.task;
 
 /**
  * Task class to instantiate a task.
@@ -8,6 +8,7 @@ public class Task {
     private String taskName;
     private int num;
     private boolean isMark;
+    private String tag;
 
     /**
      * Task constructor that takes in necessary task details.
@@ -16,10 +17,11 @@ public class Task {
      * @param taskName Description of task.
      * @param isMark   Whether task is marked or not.
      */
-    public Task(int num, String taskName, boolean isMark) {
+    public Task(int num, String taskName, String tag, boolean isMark) {
         this.taskName = taskName;
         this.num = num;
         this.isMark = isMark;
+        this.tag = tag;
     }
 
     public String getTaskName() {
@@ -51,6 +53,10 @@ public class Task {
         isMark = true;
     }
 
+    public void changeTag(String newTag) {
+        this.tag = newTag;
+    }
+
     /**
      * Changes task to unmarked if marked.
      */
@@ -61,9 +67,9 @@ public class Task {
     @Override
     public String toString() {
         if (!isMark) {
-            return "[ ] " + taskName;
+            return "[" + tag + "]" + "[ ] " + taskName;
         } else {
-            return "[X] " + taskName;
+            return "[" + tag + "]" + "[X] " + taskName;
         }
     }
 
@@ -74,9 +80,9 @@ public class Task {
      */
     public String toStringForFile() {
         if (!isMark) {
-            return "| 0 | " + taskName;
+            return "|" + tag  + "| 0 | " + taskName;
         } else {
-            return "| 1 | " + taskName;
+            return "|" + tag  + "| 1 | " + taskName;
         }
     }
 }

@@ -1,24 +1,28 @@
-package ani;
+package ani.command;
 
 import java.io.IOException;
 
+import ani.Storage;
+import ani.TaskList;
+import ani.Ui;
+
 /**
- * MarkCommand class that executes the marking of tasks.
+ * UnmarkCommand class to execute unmarking of task.
  */
-public class MarkCommand extends Command {
+public class UnmarkCommand extends Command {
     private int num;
 
     /**
-     * MarkCommand constructor that takes in the task number to be marked.
+     * UnmarkCommand constructor that takes in task number to be unmarked.
      *
-     * @param num Task number to be marked.
+     * @param num Task number.
      */
-    public MarkCommand(int num) {
+    public UnmarkCommand(int num) {
         this.num = num;
     }
 
     /**
-     * Executes the marking of the task and updates it in taskList.
+     * Executes the unmarking of task.
      *
      * @param tasks   Tasks in taskList.
      * @param ui      UI.
@@ -27,15 +31,12 @@ public class MarkCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
-        if (num > Task.getTaskCount()) {
-            throw new AniException("Please provide a valid task number");
-        }
-
-        tasks.getTask(num - 1).changeToMark();
+        tasks.getTask(num - 1).changeToUnmark();
 
         StringBuilder output = new StringBuilder();
         output.append(ui.showLine()).append("\n");
-        output.append("Nice! I have marked this task as done:\n")
+        String taskUndone = "OK, I've marked this task as not done yet:\n";
+        output.append(taskUndone)
                 .append(tasks.getTask(num - 1).toString())
                 .append("\n");
         output.append(ui.showLine());
@@ -46,7 +47,7 @@ public class MarkCommand extends Command {
 
 
     /**
-     * Signals whether the command is one that exits.
+     * Signals whether the command is the one that exits.
      *
      * @return Boolean to not exit.
      */
@@ -54,6 +55,5 @@ public class MarkCommand extends Command {
     public boolean isExit() {
         return false;
     }
-
 
 }

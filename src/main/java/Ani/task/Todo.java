@@ -1,4 +1,4 @@
-package ani;
+package ani.task;
 
 /**
  * Todo class for todo type tasks.
@@ -12,8 +12,8 @@ public class Todo extends Task {
      * @param taskName Description of task.
      * @param isMark   Boolean of whether task is marked or not.
      */
-    public Todo(int num, String taskName, boolean isMark) {
-        super(num, taskName, isMark);
+    public Todo(int num, String taskName, String tag, boolean isMark) {
+        super(num, taskName, tag, isMark);
     }
 
     @Override

@@ -1,4 +1,8 @@
-package ani;
+package ani.command;
+
+import ani.Storage;
+import ani.TaskList;
+import ani.Ui;
 
 /**
  * ExitCommand class to execute an exit task.

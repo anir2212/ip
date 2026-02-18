@@ -9,6 +9,9 @@ import java.nio.file.Paths;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
+import ani.command.AddCommand;
+import ani.exception.AniException;
+
 public class AddCommandTest {
 
     @Test
