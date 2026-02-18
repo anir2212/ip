@@ -64,21 +64,15 @@ public class AddCommand extends Command {
      * @return String output after implementation of todo task.
      */
     public String todoCommand(String input, TaskList tasks, Ui ui, Storage storage) {
-        String result = "";
         String taskTodo = input.trim().split(" ", 2)[1];
         if (taskTodo.isEmpty()) {
             throw new AniException("\nPlease state a task\n");
         }
-        Todo t = new Todo(Task.count, taskTodo, false);
-        tasks.addTask(t);
+        Todo todoTask = new Todo(Task.count, taskTodo, false);
+        tasks.addTask(todoTask);
         Task.countIncrease();
-        result += ui.showLine();
-        result += "\nGot it. I've added this task:\n"
-                + t + "\nNow you have " + Task.count + " tasks in the list.\n";
-        result += ui.showLine();
         storage.store(tasks);
-        return result;
-
+        return ui.createAddMessage(todoTask, Task.count);
     }
 
     /**
@@ -91,7 +85,6 @@ public class AddCommand extends Command {
      * @return String output after implementation of deadline task.
      */
     public String deadlineCommand(String input, TaskList tasks, Ui ui, Storage storage) {
-        String result = "";
         try {
             DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-d");
             String[] parts = input.split("/");
@@ -101,15 +94,11 @@ public class AddCommand extends Command {
 
             String finalDate = d1.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
 
-            Deadlines d = new Deadlines(Task.count, taskName, false, finalDate);
-            tasks.addTask(d);
+            Deadlines deadlineTask = new Deadlines(Task.count, taskName, false, finalDate);
+            tasks.addTask(deadlineTask);
             Task.countIncrease();
-            result += ui.showLine();
-            result += "\nGot it. I've added this task:\n"
-                    + d + "\nNow you have " + Task.count + " tasks in the list.\n";
-            result += ui.showLine();
             storage.store(tasks);
-            return result;
+            return ui.createAddMessage(deadlineTask, Task.count);
 
         } catch (DateTimeParseException e) {
             throw new AniException("\nPlease input date in valid format YYYY-MM-DD\n");
@@ -128,7 +117,6 @@ public class AddCommand extends Command {
      * @return String output after impleemntation of event task.
      */
     public String eventCommand(String input, TaskList tasks, Ui ui, Storage storage) {
-        String result = "";
         try {
             DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-d");
             String[] eventParts = input.split("/");
@@ -141,15 +129,12 @@ public class AddCommand extends Command {
             String finalStart = startDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
             String finalEnd = endDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
 
-            Event e = new Event(Task.count, event_task, false, finalStart, finalEnd);
-            tasks.addTask(e);
+            Event eventTask = new Event(Task.count, event_task, false, finalStart, finalEnd);
+            tasks.addTask(eventTask);
             Task.countIncrease();
-            result += ui.showLine();
-            result += "\nGot it. I've added this task:\n"
-                    + e + "\nNow you have " + Task.count + " tasks in the list.\n";
-            result += ui.showLine();
             storage.store(tasks);
-            return result;
+            return ui.createAddMessage(eventTask, Task.count);
+
         } catch (DateTimeParseException e) {
             throw new AniException("\nPlease input date in valid format YYYY-MM-DD\n");
         }
