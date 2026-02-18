@@ -23,6 +23,7 @@ public class FindCommand extends Command {
      * @param ui      UI.
      * @param storage Storage in Storage class for tasks present.
      */
+    @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
         StringBuilder output = new StringBuilder();
         int count = 1;
@@ -51,6 +52,7 @@ public class FindCommand extends Command {
      *
      * @return Boolean to not exit.
      */
+    @Override
     public boolean isExit() {
         return false;
     }

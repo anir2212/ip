@@ -25,6 +25,7 @@ public class MarkCommand extends Command {
      * @param storage Storage in Storage class for tasks present.
      * @throws IOException
      */
+    @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
         if (num > Task.count) {
             throw new AniException("Please provide a valid task number");
@@ -49,6 +50,7 @@ public class MarkCommand extends Command {
      *
      * @return Boolean to not exit.
      */
+    @Override
     public boolean isExit() {
         return false;
     }
