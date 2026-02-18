@@ -32,19 +32,15 @@ public class FindCommand extends Command {
 
         for (int i = 0; i < tasks.len(); i++) {
             String nameTask = tasks.getTask(i).getTaskName();
-            String[] words = nameTask.split(" ");
-            for (String word : words) {
-                if (word.equals(keyword)) {
-                    output.append(count)
-                            .append(". ")
-                            .append(tasks.getTask(i).toString())
-                            .append("\n");
-                    count++;
-                    break;
-                }
+            if (!nameTask.contains(keyword)) {
+                continue;
             }
+            output.append(count)
+                    .append(". ")
+                    .append(tasks.getTask(i).toString())
+                    .append("\n");
+            count++;
         }
-
         output.append(ui.showLine());
         return output.toString();
     }

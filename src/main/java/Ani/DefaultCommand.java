@@ -13,6 +13,7 @@ public class DefaultCommand extends Command {
      * @param storage Storage in Storage class for tasks present.
      * @throws AniException Exception thrown for invalid task types
      */
+    @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
         throw new AniException("\nSorry, I don't understand what that means\n");
     }
@@ -22,6 +23,7 @@ public class DefaultCommand extends Command {
      *
      * @return Boolean to not exit.
      */
+    @Override
     public boolean isExit() {
         return false;
     }

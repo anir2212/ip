@@ -57,9 +57,9 @@ public class AddCommand extends Command {
     /**
      * Implements todo type tasks.
      *
-     * @param input Input entered by user.
-     * @param tasks Tasks in taskList.
-     * @param ui UI.
+     * @param input   Input entered by user.
+     * @param tasks   Tasks in taskList.
+     * @param ui      UI.
      * @param storage Storage in Storage class for tasks present.
      * @return String output after implementation of todo task.
      */
@@ -84,9 +84,9 @@ public class AddCommand extends Command {
     /**
      * Implements deadline type tasks.
      *
-     * @param input Input entered by user.
-     * @param tasks Tasks in taskList.
-     * @param ui UI.
+     * @param input   Input entered by user.
+     * @param tasks   Tasks in taskList.
+     * @param ui      UI.
      * @param storage Storage in Storage class for tasks present.
      * @return String output after implementation of deadline task.
      */
@@ -121,9 +121,9 @@ public class AddCommand extends Command {
     /**
      * Implements event type tasks.
      *
-     * @param input Input entered by user.
-     * @param tasks Tasks in taskList.
-     * @param ui UI.
+     * @param input   Input entered by user.
+     * @param tasks   Tasks in taskList.
+     * @param ui      UI.
      * @param storage Storage in Storage class for tasks present.
      * @return String output after impleemntation of event task.
      */
@@ -154,7 +154,6 @@ public class AddCommand extends Command {
             throw new AniException("\nPlease input date in valid format YYYY-MM-DD\n");
         }
     }
-
 
 
     /**

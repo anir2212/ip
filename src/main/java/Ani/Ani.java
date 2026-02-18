@@ -28,7 +28,6 @@ public class Ani {
     }
 
 
-
     public String run(String command) throws IOException {
         try {
             Command c = Parser.parse(command);

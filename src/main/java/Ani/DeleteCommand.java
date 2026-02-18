@@ -42,7 +42,6 @@ public class DeleteCommand extends Command {
                 .append("Now you have ").append(Task.count)
                 .append(" tasks in the list.\n");
         output.append(ui.showLine());
-
         storage.store(tasks);
         return output.toString();
     }
