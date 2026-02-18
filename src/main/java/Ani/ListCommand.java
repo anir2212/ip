@@ -12,6 +12,7 @@ public class ListCommand extends Command {
      * @param ui      UI.
      * @param storage Storage in Storage class for tasks present.
      */
+    @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
         StringBuilder output = new StringBuilder();
 
@@ -36,6 +37,7 @@ public class ListCommand extends Command {
      *
      * @return Boolean to not exit.
      */
+    @Override
     public boolean isExit() {
         return false;
     }

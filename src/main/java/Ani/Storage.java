@@ -47,6 +47,49 @@ public class Storage {
 
     }
 
+
+    /**
+     * Creates todo task to be loaded onto taskList.
+     *
+     * @param words Array of words on txt file to be read.
+     * @return ArrayList of tasks to be loaded onto TaskList.
+     */
+    public Todo todoCreate(String[] words) {
+        Todo a = new Todo(Task.count, words[2].trim(), "1".equals(words[1].trim()));
+        Task.count++;
+        return a;
+    }
+
+    /**
+     * Creates deadline task to be loaded onto taskList.
+     *
+     * @param words Array of words on txt file to be read.
+     * @return ArrayList of tasks to be loaded onto taskList.
+     */
+    public Deadlines deadlineCreate(String[] words) {
+        Deadlines deadline = new Deadlines(Task.count, words[2].trim(), "1".equals(words[1].trim()), words[3].trim());
+        Task.count++;
+        return deadline;
+
+    }
+
+    /**
+     * Creates event task to be loaded onto taskList.
+     *
+     * @param words Array of words on txt file to be read.
+     * @return ArrayList of tasks to be loaded onto taskList.
+     */
+    public Event eventCreate(String[] words) {
+        int startIndex = words[3].trim().indexOf(":") + 1;
+        int endIndex = words[3].trim().indexOf("to");
+        String startDate = words[3].trim().substring(startIndex, endIndex).trim();
+        String endDate = words[3].trim().substring(endIndex + "to: ".length());
+        Event event = new Event(Task.count, words[2].trim(), "1".equals(words[1].trim()), startDate, endDate);
+        Task.count++;
+        return event;
+    }
+
+
     /**
      * Loads the tasks on the text storage file back into taskList when the app is reopened.
      *
@@ -66,31 +109,19 @@ public class Storage {
                 String word = words[0].trim();
                 switch (word) {
                 case "T":
-                    Todo a = new Todo(Task.count, words[2].trim(), "1".equals(words[1].trim()));
-                    Task.count++;
-                    lst.add(a);
+                    lst.add(todoCreate(words));
                     break;
 
                 case "D":
-                    Deadlines deadline = new Deadlines(Task.count, words[2].trim(), "1".equals(words[1].trim()), words[3].trim());
-                    Task.count++;
-                    lst.add(deadline);
+                    lst.add(deadlineCreate(words));
                     break;
 
                 case "E":
-                    int startIndex = words[3].trim().indexOf(":") + 1;
-                    int endIndex = words[3].trim().indexOf("to");
-                    String startDate = words[3].trim().substring(startIndex, endIndex).trim();
-                    String endDate = words[3].trim().substring(endIndex + "to: ".length());
-                    Event event = new Event(Task.count, words[2].trim(), "1".equals(words[1].trim()), startDate, endDate);
-                    lst.add(event);
-                    Task.count++;
+                    lst.add(eventCreate(words));
                     break;
 
                 }
-
             }
-
         }
         return lst;
     }

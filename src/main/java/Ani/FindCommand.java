@@ -23,6 +23,7 @@ public class FindCommand extends Command {
      * @param ui      UI.
      * @param storage Storage in Storage class for tasks present.
      */
+    @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
         StringBuilder output = new StringBuilder();
         int count = 1;
@@ -32,19 +33,15 @@ public class FindCommand extends Command {
 
         for (int i = 0; i < tasks.len(); i++) {
             String nameTask = tasks.getTask(i).getTaskName();
-            String[] words = nameTask.split(" ");
-            for (String word : words) {
-                if (word.equals(keyword)) {
-                    output.append(count)
-                            .append(". ")
-                            .append(tasks.getTask(i).toString())
-                            .append("\n");
-                    count++;
-                    break;
-                }
+            if (!nameTask.contains(keyword)) {
+                continue;
             }
+            output.append(count)
+                    .append(". ")
+                    .append(tasks.getTask(i).toString())
+                    .append("\n");
+            count++;
         }
-
         output.append(ui.showLine());
         return output.toString();
     }
@@ -55,6 +52,7 @@ public class FindCommand extends Command {
      *
      * @return Boolean to not exit.
      */
+    @Override
     public boolean isExit() {
         return false;
     }

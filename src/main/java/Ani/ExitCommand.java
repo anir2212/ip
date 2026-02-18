@@ -12,6 +12,7 @@ public class ExitCommand extends Command {
      * @param ui      UI.
      * @param storage Storage in Storage class for tasks present.
      */
+    @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
         return ui.showExit();
     }
@@ -21,6 +22,7 @@ public class ExitCommand extends Command {
      *
      * @return Boolean to exit.
      */
+    @Override
     public boolean isExit() {
         return true;
     }

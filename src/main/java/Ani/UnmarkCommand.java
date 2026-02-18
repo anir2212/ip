@@ -25,12 +25,14 @@ public class UnmarkCommand extends Command {
      * @param storage Storage in Storage class for tasks present.
      * @throws IOException
      */
+    @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
         tasks.getTask(num - 1).changeToUnmark();
 
         StringBuilder output = new StringBuilder();
         output.append(ui.showLine()).append("\n");
-        output.append("OK, I've marked this task as not done yet:\n")
+        String taskUndone = "OK, I've marked this task as not done yet:\n";
+        output.append(taskUndone)
                 .append(tasks.getTask(num - 1).toString())
                 .append("\n");
         output.append(ui.showLine());
@@ -45,6 +47,7 @@ public class UnmarkCommand extends Command {
      *
      * @return Boolean to not exit.
      */
+    @Override
     public boolean isExit() {
         return false;
     }

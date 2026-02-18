@@ -12,8 +12,15 @@ public class Main extends Application {
 
     private Ani ani = new Ani("./data/Ani.txt");
 
+    /**
+     * Starts the application.
+     *
+     * @param stage the primary stage for this application, onto which
+     * the application scene can be set.
+     * Applications may create other stages, if needed, but they will not be
+     * primary stages.
+     */
     @Override
-
     public void start(Stage stage) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));

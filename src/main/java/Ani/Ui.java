@@ -50,4 +50,13 @@ public class Ui {
     public String showLine() {
         return "_____________________________________";
     }
+
+    public String createAddMessage(Task task, int taskNumber) {
+        String result = "";
+        result += showLine();
+        result += "\nGot it. I've added this task:\n"
+                + task + "\nNow you have " + taskNumber + " tasks in the list.\n";
+        result += showLine();
+        return result;
+    }
 }
