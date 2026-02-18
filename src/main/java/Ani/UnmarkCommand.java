@@ -30,7 +30,8 @@ public class UnmarkCommand extends Command {
 
         StringBuilder output = new StringBuilder();
         output.append(ui.showLine()).append("\n");
-        output.append("OK, I've marked this task as not done yet:\n")
+        String taskUndone = "OK, I've marked this task as not done yet:\n";
+        output.append(taskUndone)
                 .append(tasks.getTask(num - 1).toString())
                 .append("\n");
         output.append(ui.showLine());
