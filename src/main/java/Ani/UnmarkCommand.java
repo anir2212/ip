@@ -25,6 +25,7 @@ public class UnmarkCommand extends Command {
      * @param storage Storage in Storage class for tasks present.
      * @throws IOException
      */
+    @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
         tasks.getTask(num - 1).changeToUnmark();
 
@@ -46,6 +47,7 @@ public class UnmarkCommand extends Command {
      *
      * @return Boolean to not exit.
      */
+    @Override
     public boolean isExit() {
         return false;
     }
