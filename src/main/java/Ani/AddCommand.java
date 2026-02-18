@@ -68,11 +68,11 @@ public class AddCommand extends Command {
         if (taskTodo.isEmpty()) {
             throw new AniException("\nPlease state a task\n");
         }
-        Todo todoTask = new Todo(Task.count, taskTodo, false);
+        Todo todoTask = new Todo(Task.getTaskCount(), taskTodo, false);
         tasks.addTask(todoTask);
         Task.countIncrease();
         storage.store(tasks);
-        return ui.createAddMessage(todoTask, Task.count);
+        return ui.createAddMessage(todoTask, Task.getTaskCount());
     }
 
     /**
@@ -94,11 +94,11 @@ public class AddCommand extends Command {
 
             String finalDate = d1.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
 
-            Deadlines deadlineTask = new Deadlines(Task.count, taskName, false, finalDate);
+            Deadlines deadlineTask = new Deadlines(Task.getTaskCount(), taskName, false, finalDate);
             tasks.addTask(deadlineTask);
             Task.countIncrease();
             storage.store(tasks);
-            return ui.createAddMessage(deadlineTask, Task.count);
+            return ui.createAddMessage(deadlineTask, Task.getTaskCount());
 
         } catch (DateTimeParseException e) {
             throw new AniException("\nPlease input date in valid format YYYY-MM-DD\n");
@@ -129,11 +129,11 @@ public class AddCommand extends Command {
             String finalStart = startDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
             String finalEnd = endDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
 
-            Event eventTask = new Event(Task.count, event_task, false, finalStart, finalEnd);
+            Event eventTask = new Event(Task.getTaskCount(), event_task, false, finalStart, finalEnd);
             tasks.addTask(eventTask);
             Task.countIncrease();
             storage.store(tasks);
-            return ui.createAddMessage(eventTask, Task.count);
+            return ui.createAddMessage(eventTask, Task.getTaskCount());
 
         } catch (DateTimeParseException e) {
             throw new AniException("\nPlease input date in valid format YYYY-MM-DD\n");

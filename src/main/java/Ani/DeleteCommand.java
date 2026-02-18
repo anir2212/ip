@@ -27,19 +27,19 @@ public class DeleteCommand extends Command {
      * @throws AniException Exception thrown for invalid task number.
      */
     public String execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
-        if (deleteNum > Task.count) {
+        if (deleteNum > Task.getTaskCount()) {
             throw new AniException("Please enter a valid task number");
         }
 
         Task removed = tasks.getTask(deleteNum - 1);
         tasks.removeTask(deleteNum - 1);
-        Task.count--;
+        Task.countDecrease();
 
         StringBuilder output = new StringBuilder();
         output.append(ui.showLine()).append("\n");
         output.append("Noted. I've removed this task:\n")
                 .append(removed.toString()).append("\n")
-                .append("Now you have ").append(Task.count)
+                .append("Now you have ").append(Task.getTaskCount())
                 .append(" tasks in the list.\n");
         output.append(ui.showLine());
         storage.store(tasks);

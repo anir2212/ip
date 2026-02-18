@@ -43,7 +43,7 @@ public class UnmarkCommand extends Command {
 
 
     /**
-     * Signals whether the command is one that exits.
+     * Signals whether the command is the one that exits.
      *
      * @return Boolean to not exit.
      */

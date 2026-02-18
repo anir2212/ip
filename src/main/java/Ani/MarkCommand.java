@@ -27,7 +27,7 @@ public class MarkCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
-        if (num > Task.count) {
+        if (num > Task.getTaskCount()) {
             throw new AniException("Please provide a valid task number");
         }
 
