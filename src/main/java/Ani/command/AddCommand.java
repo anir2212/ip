@@ -75,13 +75,9 @@ public class AddCommand extends Command {
      * @return String output after implementation of todo task.
      */
     public String todoCommand(String input, TaskList tasks, Ui ui, Storage storage) {
-        String taskTodoWithTag = input.trim().split(" ", 2)[1];
-        String taskTodo = taskTodoWithTag.substring(0, taskTodoWithTag.indexOf('#')).trim();
-        String tag = input.contains("#") ? input.substring(input.indexOf("#")).trim() : "";
-
-        if (taskTodo.isEmpty()) {
-            throw new AniException("\nPlease state a task\n");
-        }
+        String taskTodoWithTag = input.trim().split(" ", 2)[1].trim();
+        String taskTodo = tagAndTaskExtract(taskTodoWithTag)[1];
+        String tag = tagAndTaskExtract(taskTodoWithTag)[0];
         Todo todoTask = new Todo(Task.getTaskCount(), taskTodo, tag, false);
         tasks.addTask(todoTask);
         Task.countIncrease();
@@ -98,17 +94,14 @@ public class AddCommand extends Command {
      * @param storage Storage in Storage class for tasks present.
      * @return String output after implementation of deadline task.
      */
+
     public String deadlineCommand(String input, TaskList tasks, Ui ui, Storage storage) {
         try {
-            DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-d");
             String[] parts = input.split("/");
-            String date = parts[1].trim().split(" ", 2)[1];
-            LocalDate d1 = LocalDate.parse(date, dateFormat);
             String taskDescriptionWithTag = parts[0].trim().split(" ", 2)[1];
-            String taskDescription = taskDescriptionWithTag.substring(0, taskDescriptionWithTag.indexOf('#')).trim();
-            String tag = taskDescriptionWithTag.substring(taskDescriptionWithTag.indexOf("#")).trim();
-            String finalDate = d1.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
-
+            String taskDescription = tagAndTaskExtract(taskDescriptionWithTag)[1];
+            String tag = tagAndTaskExtract(taskDescriptionWithTag)[0];
+            String finalDate = deadlineDateParse(parts);
             Deadlines deadlineTask = new Deadlines(Task.getTaskCount(), taskDescription, tag, false, finalDate);
             tasks.addTask(deadlineTask);
             Task.countIncrease();
@@ -121,7 +114,6 @@ public class AddCommand extends Command {
 
     }
 
-
     /**
      * Implements event type tasks.
      *
@@ -133,19 +125,14 @@ public class AddCommand extends Command {
      */
     public String eventCommand(String input, TaskList tasks, Ui ui, Storage storage) {
         try {
-            DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-d");
             String[] eventParts = input.split("/");
-            String start = eventParts[1].trim().split(" ", 2)[1];
-            String end = eventParts[2].trim().split(" ", 2)[1];
             String eventDescriptionWithTag = eventParts[0].trim().split(" ", 2)[1];
-            String eventDescription = eventDescriptionWithTag.substring(0, eventDescriptionWithTag.indexOf('#')).trim();
-            String tag = eventDescriptionWithTag.substring(eventDescriptionWithTag.indexOf("#")).trim();
-            LocalDate startDate = LocalDate.parse(start, dateFormat);
-            LocalDate endDate = LocalDate.parse(end, dateFormat);
-            String finalStart = startDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
-            String finalEnd = endDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
-
-            Event eventTask = new Event(Task.getTaskCount(), eventDescription, tag, false, finalStart, finalEnd);
+            String eventDescription = tagAndTaskExtract(eventDescriptionWithTag)[1];
+            String tag = tagAndTaskExtract(eventDescriptionWithTag)[0];
+            String finalStart = eventDateParse(eventParts)[0];
+            String finalEnd = eventDateParse(eventParts)[1];
+            Event eventTask = new Event(Task.getTaskCount(), eventDescription,
+                    tag, false, finalStart, finalEnd);
             tasks.addTask(eventTask);
             Task.countIncrease();
             storage.store(tasks);
@@ -154,6 +141,60 @@ public class AddCommand extends Command {
         } catch (DateTimeParseException e) {
             throw new AniException("\nPlease input date in valid format YYYY-MM-DD\n");
         }
+    }
+
+    /**
+     * Extracts the tag and task String from a combined String input.
+     *
+     * @param taskWithTag User input of task along with tag.
+     * @return String array output of [task, tag].
+     */
+    private String[] tagAndTaskExtract(String taskWithTag) {
+        /** Used AI for additional exception handling for tag usage */
+        int hashIndex = taskWithTag.indexOf("#");
+        String taskTodo;
+        String tag = "";
+        if (hashIndex == -1) {
+            taskTodo = taskWithTag;
+        } else {
+            taskTodo = taskWithTag.substring(0, hashIndex).trim();
+            tag = taskWithTag.substring(hashIndex).trim();
+
+            if (tag.isEmpty()) {
+                throw new AniException("\nTag cannot be empty after '#'\n");
+            }
+        }
+        return new String[]{tag, taskTodo};
+    }
+
+    /**
+     * Parses the date from event task type user input.
+     *
+     * @param eventParts User input split into an array.
+     * @return String array of [eventStartDate, eventEndDate].
+     */
+    private String[] eventDateParse(String[] eventParts) {
+        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-d");
+        String start = eventParts[1].trim().split(" ", 2)[1];
+        String end = eventParts[2].trim().split(" ", 2)[1];
+        LocalDate startDate = LocalDate.parse(start, dateFormat);
+        LocalDate endDate = LocalDate.parse(end, dateFormat);
+        String finalStart = startDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+        String finalEnd = endDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+        return new String[]{finalStart, finalEnd};
+    }
+
+    /**
+     * Parses the date for deadline task type.
+     *
+     * @param deadlineParts User input split into an array.
+     * @return String output of deadline date.
+     */
+    private String deadlineDateParse(String[] deadlineParts) {
+        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-d");
+        String date = deadlineParts[1].trim().split(" ", 2)[1];
+        LocalDate d1 = LocalDate.parse(date, dateFormat);
+        return d1.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
     }
 
 
