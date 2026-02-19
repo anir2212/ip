@@ -12,15 +12,15 @@ import ani.Ui;
  * MarkCommand class that executes the marking of tasks.
  */
 public class MarkCommand extends Command {
-    private int num;
+    private int taskNum;
 
     /**
      * MarkCommand constructor that takes in the task number to be marked.
      *
-     * @param num Task number to be marked.
+     * @param taskNum Task number to be marked.
      */
-    public MarkCommand(int num) {
-        this.num = num;
+    public MarkCommand(int taskNum) {
+        this.taskNum = taskNum;
     }
 
     /**
@@ -33,16 +33,18 @@ public class MarkCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
-        if (num > Task.getTaskCount()) {
-            throw new AniException("Please provide a valid task number");
+        if (taskNum > Task.getTaskCount() || taskNum <= 0) {
+            throw new AniException("\nPlease provide a valid task number\n");
         }
 
-        tasks.getTask(num - 1).changeToMark();
+        Task task = tasks.getTask(taskNum - 1);
+        assert task != null : "Task to be marked cannot be null";
+        task.changeToMark();
 
         StringBuilder output = new StringBuilder();
         output.append(ui.showLine()).append("\n");
         output.append("Nice! I have marked this task as done:\n")
-                .append(tasks.getTask(num - 1).toString())
+                .append(tasks.getTask(taskNum - 1).toString())
                 .append("\n");
         output.append(ui.showLine());
 

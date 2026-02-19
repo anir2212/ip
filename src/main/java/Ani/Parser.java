@@ -9,7 +9,7 @@ import ani.command.FindCommand;
 import ani.command.ListCommand;
 import ani.command.MarkCommand;
 import ani.command.UnmarkCommand;
-import ani.command.tagCommand;
+import ani.command.TagCommand;
 
 /**
  * Parser class parses the input from the user and outputs the respective command type.
@@ -51,7 +51,7 @@ public class Parser {
         case "tag" :
             String tagWord = words[2];
             int taskNumber = Integer.parseInt(words[1]);
-            return new tagCommand(taskNumber, tagWord);
+            return new TagCommand(taskNumber, tagWord);
         case "bye":
             return new ExitCommand();
 

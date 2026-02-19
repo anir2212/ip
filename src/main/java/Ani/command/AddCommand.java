@@ -46,9 +46,7 @@ public class AddCommand extends Command {
      * @throws IOException
      */
     public String execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
-        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-d");
         String result = "";
-
         switch (taskName) {
         case "todo":
             result = todoCommand(input, tasks, ui, storage);
@@ -94,9 +92,12 @@ public class AddCommand extends Command {
      * @param storage Storage in Storage class for tasks present.
      * @return String output after implementation of deadline task.
      */
-
     public String deadlineCommand(String input, TaskList tasks, Ui ui, Storage storage) {
         try {
+            if (!input.contains("/by")) {
+                throw new AniException("\nFormat must be:\n"
+                        + "deadline task description /by YYYY-MM-DD\n");
+            }
             String[] parts = input.split("/");
             String taskDescriptionWithTag = parts[0].trim().split(" ", 2)[1];
             String taskDescription = tagAndTaskExtract(taskDescriptionWithTag)[1];
@@ -125,6 +126,11 @@ public class AddCommand extends Command {
      */
     public String eventCommand(String input, TaskList tasks, Ui ui, Storage storage) {
         try {
+            if (!input.contains("/from") || !input.contains("/to")) {
+                throw new AniException("\nFormat must be:\n"
+                        + "event description /from YYYY-MM-DD /to YYYY-MM-DD\n");
+            }
+
             String[] eventParts = input.split("/");
             String eventDescriptionWithTag = eventParts[0].trim().split(" ", 2)[1];
             String eventDescription = tagAndTaskExtract(eventDescriptionWithTag)[1];
@@ -153,7 +159,7 @@ public class AddCommand extends Command {
         /** Used AI for additional exception handling for tag usage */
         int hashIndex = taskWithTag.indexOf("#");
         String taskTodo;
-        String tag = "";
+        String tag = " ";
         if (hashIndex == -1) {
             taskTodo = taskWithTag;
         } else {
@@ -174,6 +180,7 @@ public class AddCommand extends Command {
      * @return String array of [eventStartDate, eventEndDate].
      */
     private String[] eventDateParse(String[] eventParts) {
+        /** Used AI to extract parsing code from original eventCommand code for better code quality */
         DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-d");
         String start = eventParts[1].trim().split(" ", 2)[1];
         String end = eventParts[2].trim().split(" ", 2)[1];
@@ -191,6 +198,7 @@ public class AddCommand extends Command {
      * @return String output of deadline date.
      */
     private String deadlineDateParse(String[] deadlineParts) {
+        /** Used AI to extract parsing of deadline date from deadlineCommand code to improve code quality */
         DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-d");
         String date = deadlineParts[1].trim().split(" ", 2)[1];
         LocalDate d1 = LocalDate.parse(date, dateFormat);
