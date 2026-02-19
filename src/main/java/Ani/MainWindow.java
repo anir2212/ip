@@ -35,6 +35,13 @@ public class MainWindow extends AnchorPane {
     /** Injects the Duke instance */
     public void setAni(Ani a) {
         ani = a;
+        String welcomeMessage = ani.getWelcomeMessage();
+
+        dialogContainer.getChildren().add(
+                DialogBox.getAniDialog(welcomeMessage, dukeImage)
+        );
+
+
     }
 
     /**

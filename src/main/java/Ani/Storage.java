@@ -117,9 +117,14 @@ public class Storage {
      * @return ArrayList of tasks.
      * @throws FileNotFoundException
      */
-    public ArrayList<Task> load() throws FileNotFoundException {
+    public ArrayList<Task> load() throws IOException {
 
         file.getParentFile().mkdirs();
+        if (!file.exists()) {
+            file.createNewFile();
+            return new ArrayList<>();
+
+        }
         Scanner sRead = new Scanner(file);
         ArrayList<Task> lst = new ArrayList<>();
 

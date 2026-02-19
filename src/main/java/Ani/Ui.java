@@ -11,22 +11,18 @@ public class Ui {
     /**
      * Shows welcome message.
      */
-    public void showWelcome() {
-        String logo = "    ___     ___   ___  _______\n"
-                + "   /   \\   |   \\  | | |__  __|\n"
-                + "  / /_\\ \\  | |\\ \\ | |   |  |\n"
-                + " / ----- \\ | | \\ \\| | __|  |__\n"
-                + "/__/   \\__\\| |  \\___| |______|";
+    public String showWelcome() {
+        String logo = "     ___       ___   ___    _______\n"
+                + "   /          \\     |      \\     |    |  |__     __|\n"
+                + "  /    /_\\    \\   |    |\\   \\ |    |         |   |\n"
+                + " /    ----   \\  |    | \\   \\|    |   __|    |__\n"
+                + "/__/     \\__\\|    |  \\___ |   |______|";
 
-
-        System.out.println("Hello from\n" + logo);
-
-        showLine();
-        String intro = "Hello! I'm Ani\n"
-                + "What can I do for you?";
-        System.out.println(intro);
-        showLine();
-
+        String intro = "\nHello! I'm Ani\nWhat can I do for you?";
+        return "Hello from\n" + logo + "\n"
+                + showLine()
+                + intro + "\n"
+                + showLine();
     }
 
 

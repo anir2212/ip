@@ -6,20 +6,20 @@ package ani.task;
 public class Task {
     static int count = 0;
     private String taskName;
-    private int num;
+    private int taskNum;
     private boolean isMark;
     private String tag;
 
     /**
      * Task constructor that takes in necessary task details.
      *
-     * @param num      Task number.
+     * @param taskNum      Task number.
      * @param taskName Description of task.
      * @param isMark   Whether task is marked or not.
      */
-    public Task(int num, String taskName, String tag, boolean isMark) {
+    public Task(int taskNum, String taskName, String tag, boolean isMark) {
         this.taskName = taskName;
-        this.num = num;
+        this.taskNum = taskNum;
         this.isMark = isMark;
         this.tag = tag;
     }

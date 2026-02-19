@@ -14,7 +14,6 @@ import ani.exception.AniException;
 public class DeleteCommandTest {
 
     @Test
-
     public void executeTest_invalidTaskNumber_exceptionThrown() throws IOException {
 
         TaskList tasks = new TaskList();
@@ -30,9 +29,8 @@ public class DeleteCommandTest {
             fail();
 
         } catch (AniException e) {
-            assertEquals("___________________________________\n"
-                    + "Please enter a valid task number\n"
-                    + "_________________________________", e.getMessage());
+            assertEquals("\nPlease enter a valid task number\n"
+                    , e.getMessage());
 
         }
     }

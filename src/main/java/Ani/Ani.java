@@ -27,7 +27,13 @@ public class Ani {
         } catch (AniException | FileNotFoundException e) {
             System.out.println("No previous tasks listed");
             tasks = new TaskList();
+        } catch (IOException e) {
+            throw new AniException("Could not find file");
         }
+    }
+
+    public String getWelcomeMessage() {
+        return ui.showWelcome();
     }
 
 
