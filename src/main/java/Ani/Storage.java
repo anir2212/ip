@@ -137,7 +137,6 @@ public class Storage {
                 String word = words[0].trim();
                 switch (word) {
                 case "T":
-                    //words = [T, tag, isMark, taskName]
                     lst.add(todoCreate(words));
                     break;
 

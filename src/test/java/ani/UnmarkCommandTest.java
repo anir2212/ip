@@ -1,17 +1,17 @@
 package ani;
 
-import org.junit.jupiter.api.Test;
-
-import java.io.IOException;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
+import java.io.IOException;
+
+import org.junit.jupiter.api.Test;
+
 import ani.command.AddCommand;
-import ani.command.MarkCommand;
+import ani.command.UnmarkCommand;
 import ani.exception.AniException;
 
-public class MarkCommandTest {
+public class UnmarkCommandTest {
 
     @Test
     public void executeTest_invalidTaskNumber_exceptionThrown() throws IOException {
@@ -25,7 +25,7 @@ public class MarkCommandTest {
                 , "deadline read book /by 2025-12-01")
                 .execute(tasks, ui, storage);
         try {
-            new MarkCommand(2).execute(tasks, ui, storage);
+            new UnmarkCommand(2).execute(tasks, ui, storage);
             fail();
 
         } catch (AniException e) {
