@@ -30,10 +30,8 @@ public class MarkCommandTest {
             fail();
 
         } catch (AniException e) {
-            assertEquals("_________________________________\n"
-                    + "Please provide a valid task number\n"
-                    +"______________________________", e.getMessage());
-
+            assertEquals("\nPlease provide a valid task number\n"
+                    , e.getMessage());
         }
     }
 }

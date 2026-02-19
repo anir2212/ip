@@ -25,9 +25,8 @@ public class AddCommandTest {
                     .execute(tasks, ui, storage);
             fail();
         } catch (AniException | IOException e) {
-            assertEquals("_____________________________\n"
-                    + "Please input date in valid format YYYY-MM-DD\n"
-                    + "__________________________________", e.getMessage());
+            assertEquals("\nPlease input date in valid format YYYY-MM-DD\n"
+                    , e.getMessage());
 
         }
 
@@ -40,11 +39,10 @@ public class AddCommandTest {
         String filePath = "./data/AniTest.txt";
         Storage storage = new Storage(filePath);
         new AddCommand("deadline", "deadline read book /by 2025-01-01")
-                        .execute(tasks, ui, storage);
-        String expectedLine = "D | 0 | read book | Jan 1 2025";
+                .execute(tasks, ui, storage);
+        String expectedLine = "D | | 0 | read book | Jan 1 2025";
         String actualLine = Files.readString(Paths.get(filePath)).trim();
         assertEquals(expectedLine, actualLine);
-
 
 
     }
