@@ -10,7 +10,11 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 
+
     private Ani ani = new Ani("./data/Ani.txt");
+
+
+
 
     /**
      * Starts the application.

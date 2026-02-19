@@ -1,8 +1,2 @@
-T |#funnn| 0 | borrow book
-D |#ugh| 0 | finish story | Feb 2 2024
-D |#whyy| 0 | do this | Feb 2 2025
-E |#fun| 0 | watch show | from: Feb 2 2024 to: Feb 2 2025
-T |#okay| 0 | everything and anything
-T || 0 | borrow something
-T || 0 | do something
-D | | 0 | to watch move | Feb 2 2024
+T | | 0 | borrow book
+D |#fun| 0 | watch movie | Feb 2 2024
