@@ -1,4 +1,4 @@
 T |#fun| 0 | meet john for lunch
-D |#work| 0 | finish tutorial | Feb 21 2026
 T |#harrypotter| 0 | borrow book
-E | | 0 | hackathon | from: Feb 21 2026 to: Feb 23 2026
+E || 0 | hackathon | from: Feb 21 2026 to: Feb 23 2026
+D |#work| 0 | finish script | Feb 1 2026
