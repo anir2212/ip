@@ -3,6 +3,7 @@ package ani.command;
 import ani.Storage;
 import ani.TaskList;
 import ani.Ui;
+import javafx.application.Platform;
 
 /**
  * ExitCommand class to execute an exit task.
@@ -18,7 +19,10 @@ public class ExitCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
+
+
         return ui.showExit();
+
     }
 
     /**

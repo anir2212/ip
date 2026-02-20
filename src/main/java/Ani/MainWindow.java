@@ -2,6 +2,8 @@ package ani;
 
 import java.io.IOException;
 
+import javafx.animation.PauseTransition;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -9,6 +11,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
+
 /**
  * Controller for the main GUI.
  */
@@ -23,6 +27,7 @@ public class MainWindow extends AnchorPane {
     private Button sendButton;
 
     private Ani ani;
+    private Ui ui = new Ui();
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/guy1.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/guy2.png"));
@@ -32,7 +37,9 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    /** Injects the Duke instance */
+    /**
+     * Injects the Duke instance
+     */
     public void setAni(Ani a) {
         ani = a;
         String welcomeMessage = ani.getWelcomeMessage();
@@ -50,13 +57,21 @@ public class MainWindow extends AnchorPane {
      */
     @FXML
     private void handleUserInput() throws IOException {
+        /** Used AI to fix image issue on Windows */
         String input = userInput.getText();
-
         String response = ani.run(input);
-        dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage),
-                DialogBox.getAniDialog(response, dukeImage)
-        );
+        Platform.runLater(() -> {
+            dialogContainer.getChildren().addAll(
+                    DialogBox.getUserDialog(input, userImage),
+                    DialogBox.getAniDialog(response, dukeImage)
+            );
+        });
+
         userInput.clear();
+        if (response.equals(ui.showExit())) {
+            PauseTransition delay = new PauseTransition(Duration.seconds(1.5));
+            delay.setOnFinished(event -> Platform.exit());
+            delay.play();
+        }
     }
 }
