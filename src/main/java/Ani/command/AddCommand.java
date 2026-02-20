@@ -73,14 +73,21 @@ public class AddCommand extends Command {
      * @return String output after implementation of todo task.
      */
     public String todoCommand(String input, TaskList tasks, Ui ui, Storage storage) {
-        String taskTodoWithTag = input.trim().split(" ", 2)[1].trim();
-        String taskTodo = tagAndTaskExtract(taskTodoWithTag)[1];
-        String tag = tagAndTaskExtract(taskTodoWithTag)[0];
-        Todo todoTask = new Todo(Task.getTaskCount(), taskTodo, tag, false);
-        tasks.addTask(todoTask);
-        Task.countIncrease();
-        storage.store(tasks);
-        return ui.createAddMessage(todoTask, Task.getTaskCount());
+        try {
+            String taskTodoWithTag = input.trim().split(" ", 2)[1].trim();
+            String taskTodo = tagAndTaskExtract(taskTodoWithTag)[1];
+            String tag = tagAndTaskExtract(taskTodoWithTag)[0];
+            Todo todoTask = new Todo(Task.getTaskCount(), taskTodo, tag, false);
+            tasks.addTask(todoTask);
+            Task.countIncrease();
+            storage.store(tasks);
+            return ui.createAddMessage(todoTask, Task.getTaskCount());
+
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new AniException("\nHey! Enter a task description please.\n"
+                    + "todo (task description)\n");
+        }
+
     }
 
     /**

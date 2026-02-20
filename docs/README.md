@@ -138,7 +138,7 @@ CS2105 module, I can search find CS2105, and then view the task description to k
 
 Example: `find tutorial`
 
-Task with tutorial in the task description will appear.
+All tasks with the word tutorial in the task description will appear.
 
 ```
 ____________________________________________________
@@ -150,7 +150,8 @@ ____________________________________________________
 
 ## Tagging tasks
 
-Tagging tasks allows you to place tags on a task, for easy identification of what the task is as well.
+Tagging tasks allows you to place tags on a task, for easy identification of what the task is as well. 
+Note tags are 1 word, #fun, #workfromhome, following standard tag practice.
 
 I am able to add the task of finishing tutorial and add the tag of #CS2103T to know that, the tutorial is 
 one that belongs to the module CS2103T.

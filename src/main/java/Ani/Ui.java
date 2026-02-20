@@ -12,14 +12,9 @@ public class Ui {
      * Shows welcome message.
      */
     public String showWelcome() {
-        String logo = "     ___       ___   ___    _______\n"
-                + "   /          \\     |      \\     |    |  |__     __|\n"
-                + "  /    /_\\    \\   |    |\\   \\ |    |         |   |\n"
-                + " /    ----   \\  |    | \\   \\|    |   __|    |__\n"
-                + "/__/     \\__\\|    |  \\___ |   |______|";
 
         String intro = "\nHello! I'm Ani\nWhat can I do for you?";
-        return "Hello from\n" + logo + "\n"
+        return "WELCOME TO ANI - THE PERFECT CHATBOT!\n"
                 + showLine()
                 + intro + "\n"
                 + showLine();
