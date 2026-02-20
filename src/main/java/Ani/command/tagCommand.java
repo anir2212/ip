@@ -36,7 +36,7 @@ public class TagCommand extends Command {
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
         if (taskNumber > Task.getTaskCount() || taskNumber <= 0) {
-            throw new AniException("Please provide a valid task number");
+            throw new AniException("\nPlease provide a valid task number\n");
         }
 
         tasks.getTask(taskNumber - 1).changeTag(tag);

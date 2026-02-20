@@ -10,6 +10,7 @@ import ani.command.ListCommand;
 import ani.command.MarkCommand;
 import ani.command.UnmarkCommand;
 import ani.command.TagCommand;
+import ani.exception.AniException;
 
 /**
  * Parser class parses the input from the user and outputs the respective command type.
@@ -26,15 +27,14 @@ public class Parser {
         String firstWord = input.split(" ")[0];
         String[] words = input.split(" ");
 
-
         switch (firstWord) {
         case "list":
             return new ListCommand();
         case "mark":
-            int markNum = Integer.parseInt(words[1]);
+            int markNum = Parser.catchMissingTaskNumber(words);
             return new MarkCommand(markNum);
         case "unmark":
-            int unmarkNum = Integer.parseInt(words[1]);
+            int unmarkNum = Parser.catchMissingTaskNumber(words);
             return new UnmarkCommand(unmarkNum);
         case "todo":
             return new AddCommand("todo", input);
@@ -43,14 +43,14 @@ public class Parser {
         case "event":
             return new AddCommand("event", input);
         case "delete":
-            int deleteNum = Integer.parseInt(words[1]);
+            int deleteNum = Parser.catchMissingTaskNumber(words);
             return new DeleteCommand(deleteNum);
         case "find":
             String keyword = words[1];
             return new FindCommand(keyword);
         case "tag" :
-            String tagWord = words[2];
-            int taskNumber = Integer.parseInt(words[1]);
+            String tagWord = catchMissingTag(words);
+            int taskNumber = catchMissingTaskNumber(words);
             return new TagCommand(taskNumber, tagWord);
         case "bye":
             return new ExitCommand();
@@ -61,4 +61,28 @@ public class Parser {
 
     }
 
+    
+    private static int catchMissingTaskNumber(String[] words) {
+        try {
+            return Integer.parseInt(words[1]);
+
+        } catch (ArrayIndexOutOfBoundsException | NumberFormatException e) {
+            throw new AniException("\nPlease specify a task number with the below format\n"
+                                    + "Example: command 5\n");
+        }
+    }
+
+    private static String catchMissingTag(String[] words) {
+        try {
+            Integer.parseInt(words[1]);
+            if (words[2].charAt(0) != '#') {
+                throw new AniException("\nTag using # please! #fun #lol #comeonbro\n");
+            }
+            return words[2];
+        } catch (ArrayIndexOutOfBoundsException | NumberFormatException e) {
+            throw new AniException("\nPlease use the tag command with the below format\n"
+                    + "tag 2 #CS2103T\n");
+        }
+    }
 }
+
